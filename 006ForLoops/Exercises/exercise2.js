@@ -9,3 +9,18 @@
     HINT2: This is not an ideal candidate for a for loop!
     HINT3: You don't have to provide all parts of the for loop construct
 */
+
+for (let loggedIn = false, count = 1; !loggedIn; count++) {
+  console.log("Incorrect login credentials");
+  if (count === 3) {
+    loggedIn = true;
+  }
+}
+
+console.log("Successfully logged in!");
+/*
+Incorrect login credentials
+Incorrect login credentials
+Incorrect login credentials
+Successfully logged in!
+*/
