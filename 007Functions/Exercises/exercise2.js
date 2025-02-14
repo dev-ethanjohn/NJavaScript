@@ -19,3 +19,26 @@
      - const test4 = login('moomoo', 'farm'); // "test4" should be true
      - const test5 = login('moomoo', 'moo'); // "test5" should be false
 */
+
+const login = (username, password) => {
+  if (
+    username === "admin" ||
+    (username === "monkey" && password === "123") ||
+    (username === "moomoo" && password === "farm")
+  ) {
+    return true;
+  }
+
+  return false;
+};
+
+const test = login("hello", "meow");
+const test2 = login("admin", "lol");
+const test3 = login("monkey", "123");
+const test4 = login("moomoo", "farm");
+const test5 = login("moomoo", "moo");
+console.log(test); //? false
+console.log(test2); //? true
+console.log(test3); //? true
+console.log(test4); //? true
+console.log(test5); //? false

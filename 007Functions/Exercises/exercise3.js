@@ -20,3 +20,17 @@
      - const sum1 = sumOfSquares(2, 3); // "sum1" should be 13 (4 + 9)
      - const sum2 = sumOfSquares(3, 4); // "sum1" should be 25 (9 + 16)
 */
+
+const square = (num) => {
+  return num ** 2;
+};
+
+const sumOfSquares = (num1, num2) => {
+  return square(num1) + square(num2);
+};
+
+const sum1 = sumOfSquares(2, 3);
+const sum2 = sumOfSquares(3, 4);
+
+console.log(sum1);
+console.log(sum2);

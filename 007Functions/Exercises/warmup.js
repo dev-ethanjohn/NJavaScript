@@ -11,3 +11,24 @@
 
     When you're done, call the function once.
 */
+const chill = (count) => {
+  for (i = 0; i < count; i++) {
+    console.log(`Chill... ${i + 1}`);
+  }
+  console.log("That was ice cold!");
+};
+
+chill(10);
+/*
+Chill... 1
+Chill... 2
+Chill... 3
+Chill... 4
+Chill... 5
+Chill... 6
+Chill... 7
+Chill... 8
+Chill... 9
+Chill... 10
+That was ice cold!
+*/

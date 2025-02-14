@@ -12,3 +12,14 @@
         const result1 = noRemainder(10, 7); // result1 should be false
         const result2 = noRemainder(100, 10); // result2 should be true
 */
+const noRemainder = (number, mod) => {
+  if (number % mod === 0) {
+    return true;
+  }
+  return false;
+};
+
+const result1 = noRemainder(10, 7);
+console.log(result1); //? false
+const result2 = noRemainder(100, 10);
+console.log(result2); //? true
