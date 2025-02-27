@@ -9,3 +9,22 @@
 
     HINT: Google for "javascript string contains"
 */
+
+const countries = [
+  "France",
+  "South Africa",
+  "Brazil",
+  "United States",
+  "Sweden",
+];
+
+// check google for string contains
+const newCountries = countries.filter((country) => {
+  if (country.includes(" ")) {
+    return true;
+  }
+
+  return false;
+});
+
+console.log(newCountries); //? ["South Africa", "United States"];

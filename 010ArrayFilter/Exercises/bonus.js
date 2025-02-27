@@ -13,3 +13,29 @@
 
     "over50" should contain: [60, 80, 100]
 */
+
+const nums = [10, 20, 30, 40, 50];
+
+const timesTwo = nums.map((num) => {
+  return num * 2;
+});
+
+const over50 = timesTwo.filter((num) => {
+  if (num > 50) {
+    return true;
+  }
+
+  return false;
+});
+
+console.log(nums); //? [ 10, 20, 30, 40, 50 ]
+console.log(timesTwo); //? [ 20, 40, 60, 80, 100 ]
+console.log(over50); //? [ 60, 80, 100 ]
+
+// prettier-ignore
+// NOTE: SHORTHAND using chaining
+const isDoubledAndOver50 = nums
+    .map((num) => num * 2)
+    .filter((num) => num > 50);
+
+console.log(isDoubledAndOver50); // ?[ 60, 80, 100 ]

@@ -5,3 +5,11 @@
     
     3. Print out both "points" and "sum"
 */
+
+const points = [55, 56, 57, 58, 59, 60];
+
+const sum = points.reduce((total, point) => {
+  return (total += point);
+}, 0);
+
+console.log(sum); //? 345

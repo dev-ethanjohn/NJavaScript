@@ -19,3 +19,13 @@
 
     WHY is this?
 */
+const bakery = ["Cake", "Cookie", "Bread", "Scone"];
+
+console.log(bakery);
+
+const myBakery = bakery;
+console.log(myBakery);
+myBakery.push("Croissant");
+myBakery.push("Granola");
+
+console.log(myBakery);

@@ -8,3 +8,11 @@
     WHY does this happen?
     WHAT is a String, really?
 */
+
+const greeting = "Hello, nice to meet you!";
+
+for (let i = 0; i < greeting.length; i++) {
+  console.log(greeting[i]);
+}
+
+// a string is like an array composed of invidual character

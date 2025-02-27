@@ -12,3 +12,18 @@
 
     *Print out the array after each of these steps ^
 */
+const planets = ["Mercury", "Venus", "Earth", "Mars"];
+
+planets.push("Jupiter");
+console.log(planets); //? [ 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter' ]
+
+planets.unshift("Sun");
+console.log(planets); //? [ 'Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter' ]
+
+planets.pop();
+planets.pop();
+console.log(planets); //? [ 'Sun', 'Mercury', 'Venus', 'Earth' ]
+
+planets.shift();
+planets.shift();
+console.log(planets); //? [ 'Venus', 'Earth' ]

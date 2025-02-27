@@ -11,3 +11,13 @@
     "matrix" should look like this:
         [[10], [20], [30], [40], [50]]
 */
+
+const row = [10, 20, 30, 40, 50];
+
+const matrix = row.map((num) => {
+  const result = [];
+  result.push(num);
+  return result;
+});
+
+console.log(matrix); //? [ [ 10 ], [ 20 ], [ 30 ], [ 40 ], [ 50 ] ]
