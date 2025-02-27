@@ -1,5 +1,6 @@
 // IMPORTANT REGULAR OBJECTS
 // keys in objects are only strings
+// IMPORTANT: JavaScript stores objects by reference, not by value.
 const animal = {
   id: 42,
   name: "Rowry",

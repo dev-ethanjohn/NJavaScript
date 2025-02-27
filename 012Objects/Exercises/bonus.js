@@ -14,3 +14,19 @@
 
     BONUS: How might the built-in "console" work?
 */
+
+const myConsole = {};
+
+myConsole.log = (message) => {
+  console.log(message);
+};
+
+// OTHER WAY
+// const myConsole = {
+//   log: (message) => {
+//     console.log(message);
+//   },
+// };
+myConsole.log("Hello"); //? Hello
+
+console.log(myConsole); //? { log: [Function (anonymous)] }

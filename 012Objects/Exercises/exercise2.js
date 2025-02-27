@@ -21,7 +21,74 @@
 
     7. Print out both "store" and "banana"
 
-    8. Change the price of the candy object directly to be 4.99
-
-    9. Print out both "store" and "candy"
 */
+
+const banana = { name: "banana", quantity: 1, price: 1.95 };
+const apple = { name: "apple", quantity: 1, price: 1.45 };
+const candy = { name: "candy", quantity: 1, price: 3.5 };
+
+const store = {
+  storeNumber: 5,
+  locationCity: "Milan",
+  locationCountry: "Italy",
+  products: [banana, apple, candy],
+};
+
+console.log(store);
+
+/* ANSWER
+{
+  storeNumber: 5,
+  locationCity: 'Milan',
+  locationCountry: 'Italy',
+  products: [
+    { name: 'banana', quantity: 1, price: 1.95 },
+    { name: 'apple', quantity: 1, price: 1.45 },
+    { name: 'candy', quantity: 1, price: 3.5 }
+  ]
+}
+*/
+
+console.log("-------------");
+
+for (let i = 0; i < store.products.length; i++) {
+  console.log(store.products[i]);
+}
+
+/*
+{ name: 'banana', quantity: 1, price: 1.95 }
+{ name: 'apple', quantity: 1, price: 1.45 }
+{ name: 'candy', quantity: 1, price: 3.5 }
+*/
+
+console.log(store.products.at(-1)); //? { name: 'candy', quantity: 1, price: 3.5 }
+
+// store.products[0].price = 1.75;
+banana.price = 1.75;
+
+console.log(store);
+/* ANSWER
+{
+  storeNumber: 5,
+  locationCity: 'Milan',
+  locationCountry: 'Italy',
+  products: [
+    { name: 'banana', quantity: 1, price: 1.75 },
+    { name: 'apple', quantity: 1, price: 1.45 },
+    { name: 'candy', quantity: 1, price: 3.5 }
+  ]
+}
+*/
+console.log(banana); // ? { name: 'banana', quantity: 1, price: 1.75 }
+
+// NOTE: BETTER WAY
+const bananaInStore = store.products.find(
+  (product) => product.name === "banana"
+);
+
+if (bananaInStore) {
+  bananaInStore.price = 1.75;
+}
+
+console.log(store.products[0]); // ? { name: 'banana', quantity: 1, price: 1.75 }
+console.log(banana); // ? { name: 'banana', quantity: 1, price: 1.75 }
