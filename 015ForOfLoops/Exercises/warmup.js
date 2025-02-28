@@ -4,3 +4,18 @@
 
     2. Use a for-of loop to print out each number squared
 */
+
+const numbers = [10, 20, 40, 50, 20, 100];
+
+for (const number of numbers) {
+  console.log(number ** 2);
+}
+
+/*
+100
+400
+1600
+2500
+400
+10000
+*/

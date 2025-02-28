@@ -17,3 +17,39 @@
          {age: 11, name: "Dragon"}, {age: 74, name: "Dragon"},
          {age: 39, name: "Dragon"}, {age: 2, name: "Dragon"}]
 */
+
+const ages = [10, 42, 15, 22, 11, 74, 39, 2];
+
+const results = [];
+
+/*    3. Use a for-of loop to loop over "ages" and add an Object
+       to "results" with an "age" key having the value of the "age" 
+       being looped over. Also, add a "name" key that is always "Dragon".
+       Eg: {age: 10, name: "Dragon"}, {age: 42, name: "Dragon"}
+ */
+
+for (const age of ages) {
+  // LONGHAND
+  //   const dragonObject = {
+  //     age: age,
+  //     name: "Dragon",
+  //   };
+
+  // SHORTHAND
+
+  results.push({ age: age, name: "Dragon" });
+}
+
+console.log(results);
+/* ANSWER
+[
+  { age: 10, name: 'Dragon' },
+  { age: 42, name: 'Dragon' },
+  { age: 15, name: 'Dragon' },
+  { age: 22, name: 'Dragon' },
+  { age: 11, name: 'Dragon' },
+  { age: 74, name: 'Dragon' },
+  { age: 39, name: 'Dragon' },
+  { age: 2, name: 'Dragon' }
+]
+*/
