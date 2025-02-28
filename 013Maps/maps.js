@@ -23,3 +23,12 @@ console.log(myMap.size); //? 2
 // NOTE: Delete a key-value pair
 myMap.delete("age");
 console.log(myMap); //? Map(1) { 'name' => 'Ethan' }
+
+// NOTE: We can iterate a Map using for...of loop
+
+// IMPORTANT
+/*
+- Use an Object when you have structured data with fixed keys.
+- Use a Map when you need a flexible key-value store with better performance for dynamic keys.
+
+*/

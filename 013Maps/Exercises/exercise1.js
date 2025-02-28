@@ -20,3 +20,55 @@
 
     8. Print out "myPet" to the terminal again
 */
+
+const myPet = new Map();
+
+myPet.set("name", "Sudo");
+myPet.set("type", "Dog");
+myPet.set("breed", "Poodle");
+myPet.set("age", 7);
+myPet.set("friends", ["Bit", "Byte", "Data"]);
+
+console.log(myPet);
+/* ANSWER
+Map(5) {
+  'name' => 'Sudo',
+  'type' => 'Dog',
+  'breed' => 'Poodle',
+  'age' => 7,
+  'friends' => [ 'Bit', 'Byte', 'Data' ]
+}
+*/
+
+myPet.set("colour", "Black");
+myPet.set("breed", "Beagle");
+myPet.get("friends").pop();
+
+console.log("---");
+console.log(myPet);
+/*
+Map(6) {
+  'name' => 'Sudo',
+  'type' => 'Dog',
+  'breed' => 'Beagle',
+  'age' => 7,
+  'friends' => [ 'Bit', 'Byte' ],
+  'colour' => 'Black'
+}
+*/
+
+myPet.get("friends").push("Chip");
+
+console.log("---");
+console.log(myPet);
+
+/* Answer
+Map(6) {
+  'name' => 'Sudo',
+  'type' => 'Dog',
+  'breed' => 'Beagle',
+  'age' => 7,
+  'friends' => [ 'Bit', 'Byte', 'Chip' ],
+  'colour' => 'Black'
+}
+*/
