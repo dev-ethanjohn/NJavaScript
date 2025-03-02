@@ -11,3 +11,21 @@
     HINT2: You can Google for something like:
            "resolve 2 promises at the same time javascript"
 */
+
+const myPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(10);
+  }, 3000);
+});
+
+const myPromise2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(20);
+  }, 5000);
+});
+
+Promise.all([myPromise, myPromise2]).then(([value1, value2]) => {
+  console.log("Sum:", value1 + value2);
+});
+
+console.log(myPromise);

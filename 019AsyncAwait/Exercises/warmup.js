@@ -16,3 +16,30 @@
        with a new Error Object with the message "Danger, danger!"
     7. How can you modify your async function to catch this error?
 */
+
+const fetchPokemon = (ms) => {
+  const myPromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({ data: { name: "Pickachu", power: 20 } });
+    }, ms);
+  });
+
+  return myPromise;
+};
+
+console.log("Program starting...");
+
+const fetchPromise = async () => {
+  const result = await fetchPokemon(2000);
+  console.log(result);
+};
+
+fetchPromise();
+
+console.log("Program complete");
+/*
+Program starting...
+Program complete
+{ data: { name: 'Pickachu', power: 20 } }
+ethanjohnpaguntalan@Ethans-MacBook-Air Exe
+*/

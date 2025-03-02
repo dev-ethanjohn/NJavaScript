@@ -29,3 +29,51 @@
 
     BONUS: WHY does it work this way?
 */
+
+console.log("Program started...");
+
+const myPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve({ data: "Hello, friend!", error: null });
+  }, 5000);
+});
+
+myPromise
+  .then((resolvedPromise) => {
+    console.log(resolvedPromise);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve("First promise chain complete");
+      }, 2000);
+    });
+  })
+  .then((secondValue) => {
+    console.log(secondValue);
+  });
+
+myPromise
+  .then((resolvedValue) => {
+    console.log(resolvedValue);
+
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve("Second promise chain complete!");
+      }, 10000);
+    });
+  })
+  .then((secondValue) => {
+    console.log(secondValue);
+  });
+
+console.log(myPromise);
+console.log("Program in progress...");
+
+/*
+Program started...
+Promise { <pending> }
+Program in progress...             
+{ data: 'Hello, friend!', error: null }      //5 sec
+{ data: 'Hello, friend!', error: null }      //5 sec
+First promise chain complete                 //5 sec + 2sec delay -> 7seconds
+Second promise chain complete!               //5 sec + 10sec delay -> 15seconds
+*/
