@@ -21,3 +21,81 @@
     Q1: Which of these 2 methods do you prefer?
     Q2: Which of these 2 methods is easier to read?
 */
+
+const goGetCandies = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ candy: "sour keys", quantity: 10 });
+    }, 2000);
+  });
+};
+
+const sellCandies = (candy) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(25 * candy.quantity);
+    }, 3000);
+  });
+};
+
+console.log("Starting process...");
+const firstTimeStamp = Date.now();
+
+// NOTE: USING ASYNC AWAIT
+const getCandyQuantity = async () => {
+  // NOTE: THIS IS SEQUENCIAL EXECUTION,
+  try {
+    const candy = await goGetCandies();
+    console.log("Got candies:", candy.quantity);
+    const secondTimeStamp = Date.now();
+    const timeToGetCandies = (secondTimeStamp - firstTimeStamp) / 1000;
+    console.log(`Time after getting candies: [${timeToGetCandies}]`);
+
+    const moneyEarned = await sellCandies(candy);
+    console.log("Money earned:", moneyEarned, "cents");
+
+    const endTimeStamp = Date.now();
+
+    const totalTimeElapsed = (endTimeStamp - firstTimeStamp) / 1000;
+    console.log(`Total time elapse: [${totalTimeElapsed}]`);
+  } catch (err) {
+    // IMPORTANT WE CAN wrap this inside a trycatchblock
+    console.error(err);
+  }
+};
+
+getCandyQuantity();
+console.log("Process started...");
+
+/*
+Starting process...
+Process started...
+Got candies: 10
+Time after getting candies: [2.01]
+Money earned: 250 cents
+Total time elapse: [5.013]
+*/
+
+// NOTE: USING VANILLA PROMISES
+goGetCandies()
+  .then((candy) => {
+    console.log("Got candies:", candy.quantity);
+
+    const secondTimeStamp = Date.now();
+    const timeToGetCandies = (secondTimeStamp - firstTimeStamp) / 1000;
+    console.log(`Time after getting candies: [${timeToGetCandies}s]`);
+
+    return sellCandies(candy);
+  })
+  .then((moneyEarned) => {
+    console.log("Money earned:", moneyEarned, "cents");
+
+    const endTimeStamp = Date.now();
+    const totalTimeElapsed = (endTimeStamp - firstTimeStamp) / 1000;
+    console.log(`Total time elapsed: [${totalTimeElapsed}s]`);
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
+
+console.log("Process started...");
