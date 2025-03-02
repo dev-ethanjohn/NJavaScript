@@ -27,19 +27,18 @@ const fetchPokemon = (ms) => {
   return myPromise;
 };
 
-console.log("Program starting...");
+console.log("Program starting..."); //1st
 
 const fetchPromise = async () => {
   const result = await fetchPokemon(2000);
-  console.log(result);
+  console.log(result); //3rd
 };
 
 fetchPromise();
 
-console.log("Program complete");
+console.log("Program complete"); //2nd
 /*
 Program starting...
 Program complete
 { data: { name: 'Pickachu', power: 20 } }
-ethanjohnpaguntalan@Ethans-MacBook-Air Exe
 */
