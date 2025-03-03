@@ -24,3 +24,16 @@
     *Which method do you prefer?
     ** Which method is more clear?
 */
+
+// const xyzCalc = (obj) => {
+//   return 5 * obj.x - 2 * obj.y - obj.z;
+// };
+
+// BETTER using destructuring
+const xyzCalc = ({ x, y, z }) => {
+  return 5 * x - 2 * y - z;
+};
+
+console.log(xyzCalc({ x: 20, y: 2, z: 7 })); //? 89
+console.log(xyzCalc({ x: 2, y: 1, z: 20 })); //? -12
+console.log(xyzCalc({ x: 100, y: 100, z: 100 })); //? 200
