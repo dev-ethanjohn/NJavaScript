@@ -16,3 +16,41 @@
     4. Create a switch statement that does step 2 and then repeat step 3 to
        make sure it works the same as the if/else if/else statements
 */
+
+const food = "Donut";
+
+if (food === "Fish") {
+  console.log("Sounds fishy...");
+} else if (food === "Humus") {
+  console.log("Want chips with that?");
+} else if (food === "Sushi") {
+  console.log("With or without seaweed?");
+} else {
+  console.log("Food not in our database, sorry!");
+}
+
+//? Food not in our database, sorry!
+
+// NOTE: USING SWITCH
+switch (food) {
+  case "Fish": {
+    console.log("Sounds fishy...");
+    break;
+  }
+
+  case "Humus": {
+    console.log("Want chips with that?");
+    break;
+  }
+
+  case "Sushi": {
+    console.log("With or without seaweed?");
+    break;
+  }
+
+  default:
+    console.log("Food not in our database, sorry!");
+    break;
+}
+
+//? Food not in our database, sorry!

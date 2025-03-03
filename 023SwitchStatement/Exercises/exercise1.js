@@ -11,3 +11,34 @@
 
     3. Run the code and make sure the correct messages get printed out
 */
+
+const activities = ["Swimming", "Hiking", "Rock Climbing", "Biking", "Running"];
+
+for (const activity of activities) {
+  switch (activity) {
+    case "Swimming": {
+      console.log("Like a fish!");
+      break;
+    }
+    case "Rock Climbing": {
+      console.log("Like a mountain goat!");
+      break;
+    }
+
+    case "Running": {
+      console.log("Like a cheetah!");
+      break;
+    }
+
+    default: {
+      console.log("I'm sure some animal does that...");
+      break;
+    }
+  }
+}
+
+// Like a fish!
+// I'm sure some animal does that...
+// Like a mountain goat!
+// I'm sure some animal does that...
+// Like a cheetah!
