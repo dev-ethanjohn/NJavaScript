@@ -12,3 +12,25 @@
     BONUS: Can you shorten this with the short "arrow function
            expression" syntax?
 */
+
+const characters = [
+  "Han Solo",
+  "Spock",
+  "Darth Vader",
+  "Yoda",
+  "Neo",
+  "Sarah Connor",
+];
+
+// const result = characters.filter((char) => {
+//   if (char.includes(" ")) {
+//     return true;
+//   }
+
+//   return false;
+// });
+
+// NOTE: USING TERNARY
+const result = characters.filter((char) => (char.includes(" ") ? true : false));
+
+console.log(result); //? [ 'Han Solo', 'Darth Vader', 'Sarah Connor' ]

@@ -13,3 +13,25 @@
     BONUS: Can you shorten this with the short "arrow function
            expression" syntax?
 */
+
+const wizards = ["Gandalf", "Voldemort", "Harry", "Jafar", "Saruman", "Merlin"];
+
+// const result = wizards.map((wiz) => {
+//   if (wiz.includes("n")) {
+//     return wiz.replace(/n/g, "*");
+//   } else {
+//     return wiz.toUpperCase();
+//   }
+// });
+
+//NOTE: Using ternary
+
+const result = wizards.map((wiz) =>
+  wiz.includes("n") ? wiz.replace(/n/g, "*") : wiz.toUpperCase()
+);
+
+console.log(result); //? [ 'Ga*dalf', 'VOLDEMORT', 'HARRY', 'JAFAR', 'Saruma*', 'Merli*' ]
+
+// IMPORTANT
+// /n/g → The g flag ensures that all occurrences of 'n' are replaced.
+// replace('n', '*') (without regex) would only replace the first occurrence, so we need the regex.
