@@ -22,18 +22,30 @@ const companies = [
   "meta",
   "google",
   "ibm",
+  "asa",
+  "jess",
 ];
 
-const modded = companies.reduce((result, company, i) => {
-  if (company.startsWith("a")) {
-    return result;
+const modded = companies.reduce((result, company) => {
+  if (!company.startsWith("a")) {
+    console.log(result);
+    // If result is truthy (meaning it already contains some values), we append "-" and the company to it.
+    // If result is falsy (meaning it's still an empty string ""), we start with the company name without adding a "-" at the beginning.
+    return result ? result + "-" + company : company;
   }
 
-  if (i === companies.length - 1) {
-    return result + company;
-  }
-
-  return result + company + "-";
+  return result;
 }, "");
 
-console.log(modded); //? tesla-spacex-meta-google-ibm
+console.log(modded); //? tesla-spacex-meta-google-ibm-jess
+
+// NOTE: CLEANER using filter , then convert to 1 liner string
+// .join(" ") is explicitly designed to return a string, not an array.
+// It's used to concatenate array elements into a single string.
+const modded2 = companies
+  .filter((company) => {
+    return !company.startsWith("a");
+  })
+  .join("-");
+
+console.log(modded2); //? tesla-spacex-meta-google-ibm-jess
