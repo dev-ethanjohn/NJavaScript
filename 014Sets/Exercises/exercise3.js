@@ -61,3 +61,29 @@ console.log(result);
   { name: 'candy', quantity: 1, price: 3.5 }
 ]
 */
+
+// NOTE: FUCTION APPROACH USING reduce
+const duplicates2 = new Set();
+const result2 = items.reduce((acc, item) => {
+  if (!duplicates2.has(item.name)) {
+    // ✅ Correct check
+    duplicates2.add(item.name);
+    acc.push(item);
+  }
+
+  return acc;
+}, []);
+
+console.log(result2);
+// [
+//   { name: "banana", quantity: 1, price: 1.95 },
+//   { name: "apple", quantity: 1, price: 1.45 },
+//   { name: "candy", quantity: 1, price: 3.5 },
+// ];
+
+// NOTE: MORE FUNCTIONAL APPROACH
+const result3 = Array.from(
+  new Map(items.map((item) => [item.name, item])).values()
+);
+
+console.log(result3);
