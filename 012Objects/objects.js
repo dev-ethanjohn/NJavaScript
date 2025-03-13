@@ -24,6 +24,9 @@ console.log(animal); //? { id: 42, name: 'Ron', numLegs: 4 }
 // Only looks for the membership of the KEY inside the object, i won't look for the VALUES.
 console.log("name" in animal); //? true
 
+// IMPORTANT BETTER MODERN SOLUTION
+console.log(Object.hasOwn(animal, "age"));
+
 //NOTE METHODS
 // order is consistent
 console.log(Object.keys(animal)); //?  [ 'id', 'name', 'numLegs' ]

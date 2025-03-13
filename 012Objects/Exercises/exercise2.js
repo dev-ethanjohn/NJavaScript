@@ -61,6 +61,7 @@ for (let i = 0; i < store.products.length; i++) {
 { name: 'candy', quantity: 1, price: 3.5 }
 */
 
+// NOTE:  arr.at(-1) is cleaner than arr[arr.length - 1]
 console.log(store.products.at(-1)); //? { name: 'candy', quantity: 1, price: 3.5 }
 
 // store.products[0].price = 1.75;
@@ -79,7 +80,8 @@ console.log(store);
   ]
 }
 */
-console.log(banana); // ? { name: 'banana', quantity: 1, price: 1.75 }
+console.log("Updated Banana price: ");
+console.log(banana.price); //? 1.75
 
 // NOTE: BETTER WAY
 const bananaInStore = store.products.find(
@@ -90,5 +92,17 @@ if (bananaInStore) {
   bananaInStore.price = 1.75;
 }
 
+console.log("After using find():");
 console.log(store.products[0]); // ? { name: 'banana', quantity: 1, price: 1.75 }
 console.log(banana); // ? { name: 'banana', quantity: 1, price: 1.75 }
+
+// NOTE: EVEN better
+store.products.forEach((product) => {
+  if (product.name === "banana") {
+    product.price = 1.75;
+  }
+});
+
+console.log("\nAfter using forEach():");
+console.log(store.products[0]); //? { name: 'banana', quantity: 1, price: 1.75 }
+console.log(banana); //? { name: 'banana', quantity: 1, price: 1.75 }
