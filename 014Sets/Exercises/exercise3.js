@@ -87,3 +87,8 @@ const result3 = Array.from(
 );
 
 console.log(result3);
+
+// NOTE: USING SPREAD
+const result4 = [...new Map(items.map((item) => [item.name, item])).values()];
+
+console.log(result4);
