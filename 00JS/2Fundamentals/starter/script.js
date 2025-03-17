@@ -368,3 +368,11 @@ console.log(ethan3);
 // this keyword is a reference to the object that is calling the method.
 // this keyword is not static, it changes depending on the object that is calling the method.
 // this keyword does not apply to arrow functions.
+
+// NOTE: (46) Iteration: The for Loop
+console.log("----Iteration: The for Loop----");
+
+// For loop keeps running while condition is TRUE
+for (let rep = 1; rep <= 3; rep++) {
+  console.log(`Lifting weights repetition ${rep}`);
+}
