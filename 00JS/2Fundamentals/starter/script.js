@@ -217,3 +217,47 @@ const ages = [
   calcAge(years2[years2.length - 1]),
 ];
 console.log(ages); //? [47, 70, 19]
+
+// NOTE: (40) Basic Array Operations (Methods)
+console.log("----Basic Array Operations (Methods)----");
+
+const friends2 = ["Michael", "Steven", "Peter"];
+console.log(friends2);
+
+// Add elements (.push())
+// push() method adds elements to the end of an array and returns the new length of the array.
+const newLength = friends2.push("Jay");
+console.log(friends2); //? ["Michael", "Steven", "Peter", "Jay"]
+console.log(newLength); //? 4
+
+// Add elements (.unshift())
+// unshift() method adds elements to the beginning of an array and returns the new length of the array.
+const newLength2 = friends2.unshift("John");
+console.log(friends2); //? ["John", "Michael", "Steven", "Peter", "Jay"]
+console.log(newLength2); //? 5
+
+// Remove elements (.pop())
+// pop() method removes the last element from an array and returns that element.
+const popped = friends2.pop();
+console.log(friends2); //? ['John', 'Michael', 'Steven', 'Peter']
+console.log(popped); //? Jay
+
+// Remove elements (.shift())
+// shift() method removes the first element from an array and returns that element.
+const shifted = friends2.shift();
+console.log(friends2); //? ['Michael', 'Steven', 'Peter']
+console.log(shifted); //? John
+
+// indexOf()
+// indexOf() method returns the first index at which a given element can be found in the array, or -1 if it is not present.
+console.log(friends2.indexOf("Steven")); //? 1
+console.log(friends2.indexOf("Bob")); //? -1
+
+// includes() (ES6)
+// includes() method determines whether an array includes a certain value among its entries, returning true or false as appropriate.
+console.log(friends2.includes("Steven")); //? true
+console.log(friends2.includes("Bob")); //? false
+
+if (friends2.includes("Steven")) {
+  console.log("You have a friend called Steven");
+} //? You have a friend called Steven
