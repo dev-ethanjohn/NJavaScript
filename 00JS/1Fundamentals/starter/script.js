@@ -205,3 +205,27 @@ console.log("23" > "18"); //? true  (string comparison)
 let n = "1" + 1; //? "11"
 n = n - 1; //? 10
 console.log(n); //? 10
+
+// NOTE: (20) Truthy and Falsy Values
+console.log("----20 Truthy and Falsy Values----");
+
+// Falsy Values: 0, '', undefined, null, NaN
+console.log(Boolean(0)); //? false
+console.log(Boolean(undefined)); //? false
+console.log(Boolean("Ethan")); //? true
+console.log(Boolean({})); //? true
+console.log(Boolean("")); //? false   (empty string)
+
+const money = 0;
+if (money) {
+  console.log("Don't spend it all!");
+} else {
+  console.log("You should get a job!");
+}
+
+let height;
+if (height) {
+  console.log("Height is defined");
+} else {
+  console.log("Height is undefined");
+}
