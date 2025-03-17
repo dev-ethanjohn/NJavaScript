@@ -324,3 +324,47 @@ console.log(ethan2);
 console.log(
   `${ethan2.firstName} has ${ethan2.friends.length} friends, and his best friend is called ${ethan2.friends[0]}`
 );
+
+// NOTE: (44) Object Methods
+console.log("----Object Methods----");
+
+const ethan3 = {
+  firstName: "Ethan",
+  lastName: "Paguntalan",
+  birth: 2001,
+  age: 2025 - 2000,
+  job: "student",
+  friends: ["Michael", "Steven", "Peter"],
+  hasDriversLicense: true,
+  // any function attached to the object is called a method
+  calcAge: function () {
+    // return 2037 - birthYear;
+    console.log(this); // this prints out the object itself
+    // return 2037 - this.birth;
+    this.age = 2037 - this.birth; //reassign new value age to the object
+    return this.age;
+  },
+
+  mainPassion: function () {
+    this.passion = "programming";
+    return this.passion;
+  },
+
+  getSummary: function () {
+    return `${this.firstName} is a ${this.age}-year old ${
+      this.job
+    }, and he has ${this.hasDriversLicense ? "a" : "no"} driver's license.`;
+  },
+};
+
+// console.log(ethan3.calcAge(2001)); Don't repeat yourself
+// console.log(ethan3.calcAge(ethan3.birth)); //? 36
+console.log(ethan3.calcAge()); //Better! //? 36
+console.log(ethan3.age); //? 36
+console.log(ethan3.mainPassion()); //? programming
+console.log(ethan3.getSummary()); //? Ethan is a 36-year old student, and he has a driver's license.
+console.log(ethan3);
+
+// this keyword is a reference to the object that is calling the method.
+// this keyword is not static, it changes depending on the object that is calling the method.
+// this keyword does not apply to arrow functions.
