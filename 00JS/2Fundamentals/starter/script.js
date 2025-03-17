@@ -261,3 +261,37 @@ console.log(friends2.includes("Bob")); //? false
 if (friends2.includes("Steven")) {
   console.log("You have a friend called Steven");
 } //? You have a friend called Steven
+
+// NOTE: (41) Introduction to Objects
+console.log("----Introduction to Objects----");
+
+// Objects are a collection of key-value pairs.
+// Objects are a type of data structure that can store data and functions.
+// Objects are used to store multiple sets of data.
+// Objects are created using curly braces {}.
+// Objects can store data and functions.
+// Objects can store multiple data types.
+// Objects are mutable, meaning they can be changed after they are created.
+// Objects are accessed using dot notation or bracket notation.
+// Objects are stored in memory as references.
+// Objects are passed by reference.
+// Objects can be created with object literals.
+// Objects can be created with the Object() constructor.
+// Objects can be created with the new keyword.
+// Objects can be created with the Object.create() method.
+// Objects can be created with the class keyword.
+// Objects can be created with the function constructor.
+// Objects can be created with the ES6 class syntax.
+
+const ethan2 = {
+  firstName: "Ethan",
+  lastName: "Paguntalan",
+  age: 2025 - 2000,
+  job: "student",
+  friends: ["Michael", "Steven", "Peter"],
+};
+
+// Accessing Object Properties
+console.log(ethan2);
+console.log(ethan2.lastName); //? Paguntalan
+console.log(ethan2["lastName"]); //? Paguntalan
