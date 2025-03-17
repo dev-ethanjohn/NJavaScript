@@ -362,3 +362,15 @@ if (23 > 10) {
 // In template literals, only NOTE:  expressions are inside ${}
 
 console.log(`I'm ${2037 - 1997} years old`);
+
+// NOTE: (28) The Conditional (Ternary) Operator
+console.log("----28 The Conditional (Ternary) Operator----");
+
+// Ternary Operator
+const age5 = 23;
+age5 >= 18
+  ? console.log("I like to drink wine 🍷")
+  : console.log("I like to drink water 💧");
+
+const drink = age5 >= 18 ? "wine 🍷" : "water 💧";
+console.log(drink); //? wine 🍷
