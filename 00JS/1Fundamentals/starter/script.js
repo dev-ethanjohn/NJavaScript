@@ -279,3 +279,66 @@ if (hasDriverLicense && hasGoodVision && !isTired) {
 } else {
   console.log("Someone else should drive...");
 }
+
+// NOTE: (26) The Switch Statement
+console.log("----26 The Switch Statement----");
+
+const day = "monday";
+
+switch (day) {
+  case "monday":
+    console.log("Plan course structure");
+    console.log("Go to coding meetup");
+    break;
+  case "tuesday":
+    console.log("Prepare theory videos");
+    break;
+  case "wednesday":
+  case "thursday":
+    console.log("Write code examples");
+    break;
+  case "friday":
+    console.log("Record videos");
+    break;
+  case "saturday":
+  case "sunday":
+    console.log("Enjoy the weekend");
+    break;
+  default:
+    console.log("Not a valid day");
+}
+
+// Swictch statement is a cleaner way to write if/else statements
+// Use break to exit the switch statement
+// Use default to catch any cases not covered by the switch statement
+// Use switch when you have a lot of different cases to check
+// Good for having defined number of possible cases
+// Enums for example
+
+// To use enum in JS (not built-in)
+const day2 = Object.freeze({
+  monday: "monday",
+  tuesday: "tuesday",
+  wednesday: "wednesday",
+  thursday: "thursday",
+  friday: "friday",
+  saturday: "saturday",
+  sunday: "sunday",
+});
+// Object.freeze() prevents properties from being added, modified, or removed; making the object immutable
+// Object.freeze() is shallow, meaning nested objects are not frozen
+
+function handleDay(day) {
+  switch (day) {
+    case day2.monday:
+      console.log("Plan course structure");
+      break;
+    case day2.tuesday:
+      console.log("Prepare theory videos");
+      break;
+    default:
+      console.log("Not a valid day");
+  }
+}
+
+handleDay(day2.monday); // Output: Plan course structure
