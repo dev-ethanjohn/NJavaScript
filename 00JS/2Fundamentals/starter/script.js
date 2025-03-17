@@ -74,3 +74,30 @@ console.log(age2); //? 46
 // Use Function Expressions (and even arrow functions) When:
 // You need to assign a function to a variable (e.g., for dynamic behavior).
 // You’re working with callbacks , IIFEs (Immediately Invoked Function Expressions) , or higher-order functions.
+
+// NOTE: (35) Arrow Function
+console.log("----Arrow Function----");
+
+// Arrow Function
+// Arrow functions are always ANONYMOUS.
+// Arrow functions do not get their own this keyword. They use the this keyword of the function they are written in.
+// Arrow functions are not hoisted.
+// Arrow functions cannot be used as constructors and will throw an error when used with new.
+// Arrow functions cannot be generators.
+// Arrow functions do not have the arguments object.
+// Arrow functions do not have a prototype property.
+// Arrow functions do not have a super keyword.
+// Arrow functions do not have new.target.
+
+const calcAge3 = (birthYear) => 2037 - birthYear;
+const age3 = calcAge3(1991);
+console.log(age3); //? 46
+
+const yearsUntilRetirement = (birthYear, firstName) => {
+  const currentAge = 2037 - birthYear;
+  const retirement = 65 - currentAge;
+  return `${firstName} retires in ${retirement} years`;
+};
+
+const retirement = yearsUntilRetirement(1991, "Ethan");
+console.log(retirement); //? Ethan retires in 19 years
