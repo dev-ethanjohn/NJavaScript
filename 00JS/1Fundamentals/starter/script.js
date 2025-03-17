@@ -180,3 +180,28 @@ if (birthYear3 <= 2000) {
   century = 21;
 }
 console.log(century); //? 20
+
+// NOTE: (19) Type Conversion and Coercion
+console.log("----19 Type Conversion and Coercion----");
+
+// Type Conversion
+const inputYear = "1997";
+console.log(Number(inputYear), inputYear); //? 1997 "1997"
+console.log(Number(inputYear) + 18); //? 2015
+
+console.log(Number("Ethan")); //? NaN (Not a Number)
+console.log(typeof NaN); //? number
+
+console.log(String(23), 23); //? "23" 23
+
+// Type Coercion
+console.log("I am " + 24 + " years old"); //? I am 24 years old
+console.log("23" - "10" - 3); //? 10
+console.log("23" + "10" + 3); //? 23103
+console.log("23" * "2"); //? 46
+console.log("23" / "2"); //? 11.5
+console.log("23" > "18"); //? true  (string comparison)
+
+let n = "1" + 1; //? "11"
+n = n - 1; //? 10
+console.log(n); //? 10
