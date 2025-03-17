@@ -342,3 +342,23 @@ function handleDay(day) {
 }
 
 handleDay(day2.monday); // Output: Plan course structure
+
+// NOTE: (27) Statements and Expressions
+console.log("----27 Statements and Expressions----");
+
+// Expression: A piece of code that produces a value
+3 + 4;
+1997;
+true && false && !true;
+
+// Statement: A bigger piece of code that does not produce a value on its own
+if (23 > 10) {
+  const str = "23 is bigger";
+}
+
+// Expressions produce values, statements do things
+// Statements can contain expressions
+// Statements are like full sentences, expressions are like words
+// In template literals, only NOTE:  expressions are inside ${}
+
+console.log(`I'm ${2037 - 1997} years old`);
