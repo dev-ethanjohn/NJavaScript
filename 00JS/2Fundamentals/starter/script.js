@@ -41,3 +41,36 @@ console.log(appleJuice);
 
 const appleOrangeJuice = fruitProcessor(2, 4);
 console.log(appleOrangeJuice);
+
+// NOTE: (34) Function Declaration vs. Expression
+console.log("----Function Declaration vs. Expression----");
+
+const age1 = calcAge1(1991); //Hoisted
+
+function calcAge1(birthYear) {
+  return 2037 - birthYear;
+}
+console.log(age1); //? 46
+
+// Function Expression
+// An expression produces a value. It can be stored in a variable.
+// A function expression is a function that is assigned to a variable.
+// Function Expression is not hoisted
+// Function Expression can be called only after it is defined
+// Function Expression can be used as an argument to other functions
+
+// IMPORTANT: hoisting means that you can use the function before it's declared in the code.
+
+const calcAge2 = function (birthYear) {
+  return 2037 - birthYear;
+};
+
+const age2 = calcAge2(1991);
+console.log(age2); //? 46
+
+// Use Function Declarations When:
+// You want the function to be hoisted and callable before its definition.
+// The function is a standalone block of logic that doesn’t need to be dynamically assigned.
+// Use Function Expressions (and even arrow functions) When:
+// You need to assign a function to a variable (e.g., for dynamic behavior).
+// You’re working with callbacks , IIFEs (Immediately Invoked Function Expressions) , or higher-order functions.
