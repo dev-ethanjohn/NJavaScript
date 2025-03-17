@@ -157,3 +157,26 @@ console.log(ethanNew); //? I'm Ethan, a 24 year old developer!
 console.log(`String
 multiple
 lines`);
+
+// NOTE: (18) Taking Decisions: if/else Statements
+console.log("----18 Taking Decisions: if/else Statements----");
+const age3 = 16;
+const isOldEnough = age3 >= 18;
+let yearsLeft;
+
+if (isOldEnough) {
+  console.log("Ethan can start driving license 🚗");
+} else {
+  yearsLeft = 18 - age3;
+  console.log(`Ethan is too young. Wait another ${yearsLeft} years.`);
+}
+
+const birthYear3 = 1997;
+
+let century;
+if (birthYear3 <= 2000) {
+  century = 20;
+} else {
+  century = 21;
+}
+console.log(century); //? 20
