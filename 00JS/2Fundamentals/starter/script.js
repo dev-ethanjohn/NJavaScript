@@ -295,3 +295,32 @@ const ethan2 = {
 console.log(ethan2);
 console.log(ethan2.lastName); //? Paguntalan
 console.log(ethan2["lastName"]); //? Paguntalan
+
+// NOTE: (43) Dot vs. Bracket Notation
+console.log("----Dot vs. Bracket Notation----");
+
+//  Using dot notation
+console.log(ethan2.lastName); //? Paguntalan
+
+// Using bracket notation
+const nameKey = "Name";
+console.log(ethan2["first" + nameKey]); //? Ethan
+console.log(ethan2["last" + nameKey]); //? Paguntalan
+
+// const interestedIn = prompt(
+//   "What do you want to know about Ethan? Choose between firstName, lastName, age, job, and friends"
+// );
+
+// if (ethan2[interestedIn]) {
+//   console.log(ethan2[interestedIn]);
+// } else {
+//   console.log("Wrong request! Choose between firstName, lastName, age, job, and friends");
+// }
+
+ethan2.location = "Philippines";
+ethan2["twitter"] = "@ethanpaguntalan";
+console.log(ethan2);
+
+console.log(
+  `${ethan2.firstName} has ${ethan2.friends.length} friends, and his best friend is called ${ethan2.friends[0]}`
+);
