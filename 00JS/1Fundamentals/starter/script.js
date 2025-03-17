@@ -80,3 +80,33 @@ job = "teacher";
 
 // Use const by default, and let when you need to reassign a variable
 // Avoid using var
+
+// NOTE: (13) Basic Operators
+console.log("----13 Basic Operators----");
+// Arithmetic Operators
+const now = 2021;
+const ageEthan = now - 1997;
+const ageSarah = now - 1996;
+console.log(ageEthan, ageSarah); //? 24 25
+
+console.log(ageEthan * 2, ageEthan / 10, 2 ** 3); //? 48 2.4 8
+// 2 ** 3 means 2 to the power of 3 = 2 * 2 * 2
+
+const firstName2 = "Ethan";
+const lastName = "Lopez";
+console.log(firstName2 + " " + lastName); //? Ethan Lopez (String concatenation)
+
+// Assignment Operators
+let x = 10 + 5; //? 15
+x += 10; // x = x + 10 = 25
+x *= 4; // x = x * 4 = 100
+x++; // x = x + 1 = 101
+x--; // x = x - 1 = 100
+console.log(x); //? 100
+
+// Comparison Operators
+console.log(ageEthan > ageSarah); //? false
+console.log(ageSarah >= 18); //? true
+
+const isFullAge = ageSarah >= 18; //? true
+console.log(now - 1997 > now - 1996); //? false
