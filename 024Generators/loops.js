@@ -21,6 +21,7 @@ let counterObject = counterGenerator.next();
 
 while (counterObject.done === false) {
   console.log(counterObject.value);
+  counterObject = counterGenerator.next();
 }
 
 console.log("All done!");
