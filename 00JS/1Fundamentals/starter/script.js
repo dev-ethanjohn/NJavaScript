@@ -63,3 +63,20 @@ console.log(year); //? 1997
 console.log(typeof year); //? number
 
 console.log(typeof null); //? object (a bug in JS)
+
+// NOTE: (12) Let, Const, and Var
+console.log("----12 Let, Const, and Var----");
+// Use let for variables that will change
+let age2 = 24;
+age2 = 25;
+
+// Use const for variables that will not change
+const birthYear = 1997;
+// birthYear = 1996; //? TypeError
+
+// Use var for variables that will change (old way)
+var job = "developer";
+job = "teacher";
+
+// Use const by default, and let when you need to reassign a variable
+// Avoid using var
