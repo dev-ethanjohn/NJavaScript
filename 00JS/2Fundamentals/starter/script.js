@@ -101,3 +101,20 @@ const yearsUntilRetirement = (birthYear, firstName) => {
 
 const retirement = yearsUntilRetirement(1991, "Ethan");
 console.log(retirement); //? Ethan retires in 19 years
+
+// NOTE: (36) Functions Calling Other Functions
+console.log("----Functions Calling Other Functions----");
+
+function cutFruitPieces(fruit) {
+  return fruit * 4;
+}
+
+function fruitProcessor2(apples, oranges) {
+  const applePieces = cutFruitPieces(apples);
+  const orangePieces = cutFruitPieces(oranges);
+
+  const juice = `Juice with ${applePieces} apple pieces and ${orangePieces} orange pieces.`;
+  return juice;
+}
+
+console.log(fruitProcessor2(2, 3)); //? Juice with 8 apple pieces and 12 orange pieces.
