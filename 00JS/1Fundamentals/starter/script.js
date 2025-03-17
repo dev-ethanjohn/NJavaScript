@@ -110,3 +110,50 @@ console.log(ageSarah >= 18); //? true
 
 const isFullAge = ageSarah >= 18; //? true
 console.log(now - 1997 > now - 1996); //? false
+
+// NOTE: (14) Operator Precedence
+console.log("----14 Operator Precedence----");
+
+// MDN Operator Precedence Table
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+// Higher precedence means the operator is executed first
+// Operator precedence determines the order in which operators are executed
+
+const now2 = 2025;
+const ageEthan2 = now2 - 1997;
+const ageSarah2 = now2 - 1996;
+
+console.log(now2 - 1997 > now2 - 1996); //? false
+
+let x2, y;
+x2 = y = 25 - 10 - 5; // x = y = 10
+console.log(x2, y); //? 10 10
+
+const averageAge = (ageEthan2 + ageSarah2) / 2;
+console.log(ageEthan2, ageSarah2, averageAge); //? 28 29 28.5
+
+// NOTE: (17) Strings and Template Literals
+console.log("----17 Strings and Template Literals----");
+const firstName3 = "Ethan";
+const job2 = "developer";
+const birthYear2 = 1997;
+const year2 = 2021;
+
+const ethan =
+  "I'm " +
+  firstName3 +
+  ", a " +
+  (year2 - birthYear2) +
+  " year old " +
+  job2 +
+  "!";
+console.log(ethan); //? I'm Ethan, a 24 year old developer!
+
+// Template Literals
+const ethanNew = `I'm ${firstName3}, a ${year2 - birthYear2} year old ${job2}!`;
+console.log(ethanNew); //? I'm Ethan, a 24 year old developer!
+
+// Multiline string
+console.log(`String
+multiple
+lines`);
