@@ -229,3 +229,27 @@ if (height) {
 } else {
   console.log("Height is undefined");
 }
+
+// NOTE: (21) Equality Operators: == vs. ===
+console.log("----21 Equality Operators: == vs. ===----");
+
+const age4 = 18;
+if (age4 === 18) console.log("You just became an adult (strict)");
+
+if (age4 == "18") console.log("You just became an adult (loose)");
+
+// const favorite = Number(prompt("What's your favorite number?"));
+// console.log(favorite);
+// console.log(typeof favorite); //number
+
+// Alwasys use strict equality operator (===)
+const favorite = 232;
+if (favorite === 23) {
+  console.log("Cool! 23 is an amazing number!");
+} else if (favorite === 7) {
+  console.log("7 is also a cool number!");
+} else {
+  console.log("Number is not 23 or 7");
+}
+
+if (favorite !== 23) console.log("Why not 23?");
