@@ -414,3 +414,27 @@ for (let i = 0; i < ethan4.length; i++) {
   if (typeof ethan4[i] === "number") break; //this will stop the iteration if the condition is met
   console.log(ethan4[i], typeof ethan4[i]);
 }
+
+// NOTE: (48) Looping Backwards and Loops in Loops
+console.log("----Looping Backwards and Loops in Loops----");
+
+const ethan5 = [
+  "Ethan",
+  "Paguntalan",
+  2025 - 2000,
+  "student",
+  ["Michael", "Steven", "Peter"],
+];
+
+// Looping Backwards
+for (let i = ethan5.length - 1; i >= 0; i--) {
+  console.log(i, ethan5[i]);
+}
+
+for (let exercise = 1; exercise < 4; exercise++) {
+  console.log(`----Starting exercise ${exercise}`);
+
+  for (let rep = 1; rep < 6; rep++) {
+    console.log(`Lifting weights repetition ${rep}`);
+  }
+}
