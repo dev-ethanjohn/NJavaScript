@@ -20,3 +20,18 @@ document.querySelector('.score').textContent = 21;
 
 document.querySelector('.guess').value = 23;
 console.log(document.querySelector('.guess').value);
+
+// NOTE: (75) Handling click event
+console.log('----Handling Click Event----');
+
+document.querySelector('.check').addEventListener('click', () => {
+  // console.log(document.querySelector('.guess').value);
+  // document.querySelector('.message').textContent = 'Correct Number2';
+
+  const guess = Number(document.querySelector('.guess').value);
+  console.log(guess);
+
+  if (!guess) {
+    document.querySelector('.message').textContent = 'no number!';
+  }
+});
