@@ -8,7 +8,7 @@ const btnsOpenModal = document.querySelectorAll('.show-modal');
 // console.log(btnsOpenModal);
 
 const openModal = () => {
-  console.log('Button clicked');
+  // console.log('Button clicked');
   modal.classList.remove('hidden');
   overlay.classList.remove('hidden');
 };
@@ -25,5 +25,14 @@ const closeModal = () => {
 
 // hide the modal + overlay on click
 btnCloseModal.addEventListener('click', closeModal);
-
 overlay.addEventListener('click', closeModal);
+
+//Keyboard events are global events, they apply to all elements
+document.addEventListener('keydown', e => {
+  // console.log(e.key);
+
+  if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+    console.log('Close the modal');
+    closeModal();
+  }
+});
