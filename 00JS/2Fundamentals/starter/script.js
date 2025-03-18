@@ -376,3 +376,41 @@ console.log("----Iteration: The for Loop----");
 for (let rep = 1; rep <= 3; rep++) {
   console.log(`Lifting weights repetition ${rep}`);
 }
+
+const ethan4 = [
+  "Ethan",
+  "Paguntalan",
+  2025 - 2000,
+  "student",
+  ["Michael", "Steven", "Peter"],
+  true,
+];
+
+const types = [];
+for (let i = 0; i < ethan4.length; i++) {
+  console.log(ethan4[i], typeof ethan4[i]);
+  types.push(typeof ethan4[i]);
+}
+
+console.log(types);
+
+const years3 = [1991, 2007, 1969, 2020];
+const ages4 = [];
+
+for (let i = 0; i < years3.length; i++) {
+  ages4.push(2037 - years3[i]);
+}
+
+console.log(ages4); //? [46, 30, 68, 17]
+
+// Continue and Break
+
+for (let i = 0; i < ethan4.length; i++) {
+  if (typeof ethan4[i] !== "string") continue; //this will skip the iteration if the condition is met, so ignore the all that arent string
+  console.log(ethan4[i], typeof ethan4[i]);
+}
+
+for (let i = 0; i < ethan4.length; i++) {
+  if (typeof ethan4[i] === "number") break; //this will stop the iteration if the condition is met
+  console.log(ethan4[i], typeof ethan4[i]);
+}
