@@ -386,3 +386,5 @@ console.log(elsa2); // {firstName: 'Elsa', lastName: 'Wiliams', age: 27, family:
 console.log(elsaDeepCopy); // {firstName: 'Elsa', lastName: 'Wiliams', age: 27, family: Array(6)} //NOTE: Array is now 6 including `Dan` and `Cleo`;
 
 // NOTE: Prior have to use external library like lodash for deep cloning of objects.
+
+// NOTE: (103):Memory Management: Garbage Collection
