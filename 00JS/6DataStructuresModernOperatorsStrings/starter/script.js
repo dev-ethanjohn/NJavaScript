@@ -51,6 +51,11 @@ const restaurant = {
     console.log(`Here is your delicious pasta with ${ing1}, ${ing2}, ${ing3}`);
   },
 
+  orderPizza: function (mainIngredient, ...otherIngredients) {
+    console.log(mainIngredient);
+    console.log(otherIngredients);
+  },
+
   openingHours: {
     thu: {
       open: 12,
@@ -241,3 +246,53 @@ console.log(originalObject.a); // 10 (changed)
 originalObject.b.c = 20;
 console.log(originalObject.b.c); // 20 (changed!)
 console.log(originalObject.b.c); // 20 (changed)
+
+// IMPORTANT: (110) Rest Pattern and Parameters
+
+const arrAy = [1, 2, ...[3, 4]];
+
+// Rest is opposite of Spread. It packs elements into an array and usually at the left side of the assignment operator.
+// Rest is used in function parameters and destructuring.
+// Rest collects multiple elements and condenses them into an array.
+// NOTE: Rest must be the last element.
+const [c, d, ...others] = [1, 2, 3, 4, 5];
+console.log(c, d, others); // 1 2 [3, 4, 5]
+
+const [pizza, , risotto, ...otherFood] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+
+console.log(pizza, risotto, otherFood); // Pizza Risotto ["Focaccia", "Bruschetta", "Garlic Bread", "Caprese Salad"]
+
+// Rest in objects
+const { sat, ...weekdays } = restaurant.openingHours;
+console.log(weekdays); //? {thu: {…}, fri: {…}}
+
+// Rest in function parameters
+const add = function (...numbers) {
+  console.log(numbers);
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+  }
+  return sum;
+};
+
+const sum1 = add(2, 3); // [2, 3]
+const sum2 = add(5, 3, 7, 2); // [5, 3, 7, 2]
+
+console.log(sum1, sum2); //? 5 17
+// Spread -> Expand, Rest -> Compress
+
+const x = [27, 5, 3];
+const sum3 = add(...x); // [27, 5, 3]
+console.log(sum3); //? 35
+
+restaurant.orderPizza('mushrooms', 'onions', 'olives', 'spinach');
+//1? mushrooms
+//2? ["onions", "olives", "spinach"]
+
+restaurant.orderPizza('mushrooms');
+//1? mushrooms
+//2? []
