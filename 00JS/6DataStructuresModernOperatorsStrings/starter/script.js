@@ -47,6 +47,10 @@ const restaurant = {
     );
   },
 
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(`Here is your delicious pasta with ${ing1}, ${ing2}, ${ing3}`);
+  },
+
   openingHours: {
     thu: {
       open: 12,
@@ -148,3 +152,92 @@ restaurant.orderDeliver({
   mainIndex: 2,
   starterIndex: 2,
 }); //? Order received! Garlic Bread and Risotto will be delivered to Viva del Sole, 21 at 22:30
+
+//IMPORTANT: (109) Spread Operator
+console.log('--- Spread Operator ---');
+// Spread Operator is used to expand an array or object or any iterable into individual elements.
+// Spread Operator is used where we would write values separated by commas.
+// Spread creates a shallow copy of the array or object.
+// Spread Operator is used in function calls and in array literals.
+
+const arr = [7, 8, 9];
+const badNewArr = [1, 2, arr[0], arr[1], arr[2]];
+console.log(badNewArr); // [1, 2, 7, 8, 9]  //? Not a good way to do this
+
+// Using Spread Operator
+const newArr = [1, 2, ...arr];
+console.log(newArr); // [1, 2, 7, 8, 9]
+
+console.log(...newArr); // 1 2 7 8 9 // logs each element of the array
+
+// Spread Operator can be used in all iterables like arrays, strings, maps, sets, etc.
+const newMenu = [...restaurant.mainMenu, 'Gnocchi'];
+console.log(newMenu); // ["Pizza", "Pasta", "Risotto", "Gnocchi"]
+
+// NOTE: 2 use cases of Spread Operator
+// 1. Copy Array
+const mainMenuCopy = [...restaurant.mainMenu];
+
+// 2. Join 2 arrays
+const menu2 = [...restaurant.starterMenu, ...restaurant.mainMenu];
+console.log(menu2); //? ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad', 'Pizza', 'Pasta', 'Risotto']
+
+// Iterables: arrays, strings, maps, sets. NOT objects
+const str = 'Alice';
+const letters = [...str, ' ', 'S.'];
+console.log(letters); //? ["A", "l", "i", "c", "e", " ", "S."]
+console.log(...str); //? A l i c e
+// console.log(`${...str} Schmedtmann`); // SyntaxError: Unexpected token '...'
+
+// Real-world example
+const ingredients = [
+  // prompt("Let's make pasta! Ingredient 1?"),
+  // prompt('Ingredient 2?'),
+  // prompt('Ingredient 3?'),
+];
+console.log(ingredients);
+
+restaurant.orderPasta(ingredients[0], ingredients[1], ingredients[2]); //? Here is your delicious pasta with a, s, d
+restaurant.orderPasta(...ingredients); //? Here is your delicious pasta with a, s, d (BETTER SOLUTION)
+
+// Objects
+const newRestaurant = { foundedIn: 1998, ...restaurant, founder: 'Alice' };
+console.log(newRestaurant);
+
+const restaurantCopy = { ...restaurant };
+restaurantCopy.nameR = 'Ristorante Roma';
+console.log(restaurantCopy.nameR); // Ristorante Roma (changed)
+console.log(restaurant.nameR); // Classico Italiano (unchanged)
+
+// NOTE: NESTED OBJECTS/ARRAYS
+const originalArray = [1, 2, [3, 4]];
+
+console.log('Original Array: ', originalArray);
+// Create a shallow copy using the spread operator
+const copy = [...originalArray];
+console.log(copy); // [1, 2, [3, 4]]
+// Modify a top-level element in the copy
+copy[0] = 10;
+console.log(originalArray[0]); // 1 (unchanged)
+console.log(copy[0]); // 10 (changed)
+// Modify a nested element in the copy
+copy[2][0] = 30;
+console.log(originalArray[2][0]); // 30 (changed!)
+console.log(copy[2][0]); // 30 (changed)
+
+// Create a shallow copy using the spread operator
+const originalObject = {
+  a: 1,
+  b: { c: 2 },
+};
+console.log('originalObject', originalObject);
+const copiedObject = { ...originalObject };
+console.log(copiedObject); // { a: 1, b: { c: 2 } }
+// Modify a top-level property in the copy
+originalObject.a = 10;
+console.log(originalObject.a); // 1 (unchanged)
+console.log(originalObject.a); // 10 (changed)
+// Modify a nested property in the copy
+originalObject.b.c = 20;
+console.log(originalObject.b.c); // 20 (changed!)
+console.log(originalObject.b.c); // 20 (changed)
