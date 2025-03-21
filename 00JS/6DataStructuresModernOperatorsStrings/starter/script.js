@@ -346,3 +346,32 @@ console.log('--- The Nullish Coalescing Operator (??) ---');
 restaurant.numGuests = 0;
 const guestsCorreect = restaurant.numGuests ?? 10;
 console.log(guestsCorreect); // 0
+
+// IMPORTANT (113) Logical assignment Operators
+console.log('--- Logical assignment Operators ---');
+
+const rest1 = {
+  name: 'Capri',
+  numGuests: 0,
+};
+const rest2 = {
+  name: 'La Perla',
+  owner: 'Giovanni',
+};
+
+// if the property is not present, it will be set to 10
+// rest1.numGuests = rest1.numGuests || 10;
+// rest2.numGuests = rest2.numGuests || 10;
+
+// using logical nullish (setting default values)
+rest1.numGuests ??= 10;
+rest2.numGuests ??= 10;
+
+console.log(rest1); //? {name: "Capri", numGuests: 23}
+console.log(rest2); //? {name: "La Perla", owner: "Giovanni", numGuests: 10}
+
+// using local add
+rest1.owner ||= 'anonymous';
+rest2.owner ||= 'anonymous';
+console.log(rest1); //? {name: 'Capri', numGuests: 0, owner: 'anonymous'}
+console.log(rest2); //? {name: 'La Perla', owner: 'Giovanni', numGuests: 10}
