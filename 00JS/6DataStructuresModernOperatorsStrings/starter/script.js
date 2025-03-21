@@ -375,3 +375,28 @@ rest1.owner ||= 'anonymous';
 rest2.owner ||= 'anonymous';
 console.log(rest1); //? {name: 'Capri', numGuests: 0, owner: 'anonymous'}
 console.log(rest2); //? {name: 'La Perla', owner: 'Giovanni', numGuests: 10}
+
+// IMPORTANT: (115) Looping Arrays: The for-of Loop
+// for of loop
+console.log('--- Looping Arrays: The for-of Loop ---');
+
+const menu3 = [...restaurant.starterMenu, ...restaurant.mainMenu];
+for (const item of menu3) console.log(item);
+// Focaccia
+// Bruschetta
+// Garlic Bread
+// Caprese Salad
+// Pizza
+// Pasta
+// Risotto
+
+for (const [i, el] of menu3.entries()) {
+  console.log(`${i + 1}: ${el}`);
+}
+// 1: Focaccia
+// 2: Bruschetta
+// 3: Garlic Bread
+// 4: Caprese Salad
+// 5: Pizza
+// 6: Pasta
+// 7: Risotto
