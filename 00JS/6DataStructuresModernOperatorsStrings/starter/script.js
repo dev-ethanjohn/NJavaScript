@@ -296,3 +296,45 @@ restaurant.orderPizza('mushrooms', 'onions', 'olives', 'spinach');
 restaurant.orderPizza('mushrooms');
 //1? mushrooms
 //2? []
+
+//  (111) Short Circuiting (&& and ||)
+console.log('--- Short Circuiting (&& and ||) ---');
+//  Return the first truthy value.
+//  logical operators can use any data type and return any data type.
+//  They do short-circuiting, which means they can use any data type and return any data type.
+//  They can return any data type, not only boolean.
+console.log('--- OR ---');
+console.log(3 || 'Alice'); // 3
+console.log('' || 'Alice'); // Alice
+console.log(true || 0); // true
+console.log(undefined || null); // null
+
+console.log(undefined || 0 || '' || 'Hello' || 23 || null); // Hello
+
+// practical use
+// using ternary operator
+// restaurant.numGuests = 10;
+const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+console.log(guests1); // 10 (default value)
+
+//  using short-circuiting (if all are falsy, it returns the last value)
+const guests2 = restaurant.numGuests || 10;
+console.log(guests2); // 10 (default value)
+
+console.log('--- AND ---');
+//  Return the first falsy value.
+// if all are truthy, it returns the last value.
+console.log(0 && 'Alice'); // 0
+console.log(7 && 'Alice'); // Alice
+
+console.log('Hello' && 23 && null && 'Alice'); // null
+
+// practice use
+// using if-else
+if (restaurant.orderPizza) {
+  //more explicit
+  restaurant.orderPizza('mushrooms', 'spinach');
+}
+
+// using short-circuiting (if all are truthy, it returns the last value)
+restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach'); //if truthy,call the function
