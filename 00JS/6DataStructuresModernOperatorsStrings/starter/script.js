@@ -297,7 +297,7 @@ restaurant.orderPizza('mushrooms');
 //1? mushrooms
 //2? []
 
-//  (111) Short Circuiting (&& and ||)
+// IMPORTANT (111) Short Circuiting (&& and ||)
 console.log('--- Short Circuiting (&& and ||) ---');
 //  Return the first truthy value.
 //  logical operators can use any data type and return any data type.
@@ -338,3 +338,11 @@ if (restaurant.orderPizza) {
 
 // using short-circuiting (if all are truthy, it returns the last value)
 restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach'); //if truthy,call the function
+
+// IMPORTANT (112) The Nullish Coalescing Operator (??)
+console.log('--- The Nullish Coalescing Operator (??) ---');
+// it works with nullish values: null and undefined (NOT 0 or ''). We assume that 0 and '' are valid values.
+// it is used to set default values.
+restaurant.numGuests = 0;
+const guestsCorreect = restaurant.numGuests ?? 10;
+console.log(guestsCorreect); // 0
