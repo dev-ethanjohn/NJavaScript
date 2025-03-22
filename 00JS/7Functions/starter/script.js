@@ -129,3 +129,85 @@ console.log('--- First-Class and Higher-Order Functions ---');
 // They are used to build abstractions and compose code in a more readable and maintainable way.
 
 // NOTE: There are higher-order functions because the language supports first-class functions. First class functions is just a concept, in practice we are dealing with higher-order functions. Example, using callback functions in event listeners.
+
+// IMPORTANT (136): Functions Accepting Callback Functions
+console.log('--- Functions Accepting Callback Functions ---');
+
+// Callback Functions
+// A callback function is a function that is passed to another function as an argument and is executed inside that function.
+// used to implement behavior that is not known at the time of writing the code.
+// used to handle tasks that take some time to complete (e.g., fetching data from an API).
+// used to handle events (e.g., click events, timer events).
+// used to perform tasks after another task has completed.
+// used to break up code into smaller, reusable parts.
+// used to implement higher-order functions.
+
+const oneWord = function (str) {
+  return str.replace(/ /g, '').toLowerCase();
+};
+
+const upperFirstWord = function (str) {
+  const [first, ...others] = str.split(' ');
+  return [first.toUpperCase(), ...others].join(' ');
+};
+
+// HIGHER ORDER FUNCTION
+const transformer = function (str, fn) {
+  console.log(`Original string: ${str}`);
+  console.log(`Transformed string: ${fn(str)}`);
+
+  console.log(`Transformed by: ${fn.name}`);
+};
+
+transformer('JavaScript is the best!', upperFirstWord);
+// Original string: JavaScript is the best!
+// Transformed string: JAVASCRIPT is the best!
+// Transformed by: upperFirstWord
+
+transformer('JavaScript is the best!', oneWord);
+// Original string: JavaScript is the best!
+// Transformed string: javascriptisthebest
+// Transformed by: oneWord
+
+// JavaScript uses callbacks all the time.
+const high5 = function () {
+  console.log('👋');
+};
+document.body.addEventListener('click', high5);
+
+['Jonas', 'Martha', 'Adam'].forEach(high5);
+// For example, the .forEach() method on arrays.
+// The .forEach() method takes a callback function as an argument.
+// The callback function is executed on each element in the array.
+// callback function allow us to create abstractions and write more reusable code.
+// NOTE: ABstractions are a way to hide the complexity of code and make it easier to understand.
+//  Example of abstraction: .forEach() method hides the complexity of looping over an array.
+//  From the code above, the transformer function is an abstraction that hides the complexity of transforming a string. It delegates the transformation to the callback function. which is passed as an argument. The lower-level functions (oneWord and upperFirstWord) are the implementation details of the abstraction.
+
+// IMPORTANT (137): Functions Returning Functions
+console.log('--- Functions Returning Functions ---');
+
+// This is the opposite of the previous example.
+// A higher-order function that returns a new function.
+
+const greet = function (greeting) {
+  return function (name) {
+    console.log(`${greeting} ${name}`);
+  };
+};
+
+const greeterHey = greet('Hey');
+greeterHey('Jonas'); //? Hey Jonas
+greeterHey('Steven'); //? Hey Steven
+
+// This is an example of a closure.
+// A closure is the closed-over variable environment of the execution context in which a function was created.
+// In this case, the greeting variable is a part of the greeterHey function's variable environment.
+// Useful for data encapsulation and to create private variables. Functional programming.
+
+greet('Hello')('Jonas'); //? Hello Jonas
+
+// Using arrow functions
+const greetArrow = greeting => name => console.log(`${greeting} ${name}`);
+
+greetArrow('Hi')('Jonas'); //? Hi Jonas
