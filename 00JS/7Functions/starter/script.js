@@ -299,3 +299,66 @@ book.apply(swiss, flightData); //? George Cooper booked a seat on Swiss Air Line
 bookFlightWithReference(swiss, ...flightData);
 // George Cooper booked a seat on Swiss Air Lines flight LX583
 // Booking reference number: #1542
+
+// IMPORTANT (139): The bind Method
+console.log('--- The bind Method ---');
+// The bind method is similar to the call method.
+// The bind method also allows us to set the this keyword to any object.
+// The difference is that the bind method does not immediately call the function.
+// Instead, it returns a new function where the this keyword is bound.
+
+const bookEW = book.bind(eurowings); //? function (flightNum, name) { ... }
+const bookLH = book.bind(lufthansa); //? function (flightNum, name) { ... }
+const bookLX = book.bind(swiss); //? function (flightNum, name) { ... }
+
+bookEW(23, 'Steven Williams'); //? Steven Williams booked a seat on Eurowings flight EW23
+console.log(eurowings.bookings); //? [{flight: 'EW23', name: 'Steven Williams'}]
+
+// This is called partial application.
+// The bind method allows us to preset arguments.
+// We can create a new function with preset arguments.
+// This is useful when we want to create a function based on another function but with some preset parameters.
+const bookEW23 = book.bind(eurowings, 23); //? function (name) { ... } *preset argument
+
+bookEW23('Martha Cooper'); //? Martha Cooper booked a seat on Eurowings flight EW23
+bookEW23('John Cooper'); //? John Cooper booked a seat on Eurowings flight EW23
+console.log(eurowings.bookings); // [{flight: 'EW23', name: 'Steven Williams'}, {flight: 'EW23', name
+// : 'Martha Cooper'}, {flight: 'EW23', name: 'John Cooper'}]
+
+// With Event Listeners
+lufthansa.planes = 300;
+lufthansa.buyPlane = function () {
+  console.log(this); //? {airline: 'Lufthansa', iataCode: 'LH', bookings: Array(3), planes: 300, book: ƒ, …}
+  this.planes++;
+  console.log(this.planes); //? 301
+};
+
+document
+  .querySelector('.buy')
+  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+// In event listeners, the this keyword points to the DOM element that the handler is attached to.
+// To make the this keyword point to the object that we want, we use the bind method.
+
+// Partial Application
+// The bind method allows us to preset arguments.
+// We can create a new function with preset arguments.
+// This is useful when we want to create a function based on another function but with some preset parameters.
+
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200)); //? 220
+
+const addVAT = addTax.bind(null, 0.23); //? function (value) { ... }
+// addVAT = value + value * 0.23; *the same as addTax(0.23, value)
+console.log(addVAT(100)); //? 123
+console.log(addVAT(23)); //? 28.29
+
+// function returning function
+const addTaxRate = function (rate) {
+  return function (value) {
+    return value + value * rate;
+  };
+};
+
+const addVAT2 = addTaxRate(0.23); //? function (value) { ... }
+console.log(addVAT2(100)); //? 123
+console.log(addVAT2(23)); //? 28.29
