@@ -211,3 +211,91 @@ greet('Hello')('Jonas'); //? Hello Jonas
 const greetArrow = greeting => name => console.log(`${greeting} ${name}`);
 
 greetArrow('Hi')('Jonas'); //? Hi Jonas
+
+// IMPORTANT (138): The call and apply Methods
+console.log('--- The call and apply Methods ---');
+
+const lufthansa = {
+  airline: 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  // book: function () {}
+  book(flightNum, name) {
+    console.log(
+      `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
+    );
+    this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+  },
+};
+
+lufthansa.book(239, 'Jonas Schmedtmann'); //? Jonas Schmedtmann booked a seat on Lufthansa flight LH239
+lufthansa.book(635, 'John Smith'); //? John Smith booked a seat on Lufthansa flight LH635
+console.log(lufthansa.bookings); //? [{flight: 'LH239', name: 'Jonas Schmedtmann'}, {flight: 'LH635', name: 'John Smith'}]
+
+const eurowings = {
+  airline: 'Eurowings',
+  iataCode: 'EW',
+  bookings: [],
+};
+
+const book = lufthansa.book; // assign the function to a variable
+
+// Does NOT work
+// book(23, 'Sarah Williams');
+// Uncaught TypeError: Cannot read properties of undefined (reading 'airline')
+// The this keyword is undefined in the book function because it's a regular function call.
+
+// To solve this, we can use the call method.
+// The call method allows us to set the this keyword to any object.
+// The first argument of the call method is the object that we want to set as this.
+// The other arguments are the arguments of the function.
+book.call(eurowings, 23, 'Sarah Williams'); // method borrowing
+//? Sarah Williams booked a seat on Eurowings flight EW23
+console.log(eurowings.bookings); //? [{flight: 'EW23', name: 'Sarah Williams'}]
+
+//NOTE:
+// A function in JavaScript doesn’t belong to an object—it’s just a value.
+// When assigning a method from an object to a variable, it loses its original reference to this.
+// The call method allows us to set this manually when calling the function.
+// This lets us reuse methods across different objects without duplicating code.
+
+book.call(lufthansa, 239, 'Mary Cooper'); //? Mary Cooper booked a seat on Lufthansa flight LH239
+console.log(lufthansa.bookings); //? [{flight: 'LH239', name: 'Jonas Schmedtmann'}, {flight: 'LH635', name: 'John Smith'}, {flight: 'LH239', name: 'Mary Cooper'}] // now has 3 bookings
+
+//NOTE: // When we want to have custom method for an object , we wrap it in a wrapper function.
+// Wrapper function for custom behavior
+function bookFlightWithReference(obj, flightNum, name) {
+  // Call the original book function with the correct `this`
+  book.call(obj, flightNum, name);
+
+  // NOTE: Add custom behavior
+  console.log(
+    `Booking reference number: #${Math.floor(Math.random() * 100000)}`
+  );
+}
+
+bookFlightWithReference(eurowings, 23, 'Steven Williams');
+// Steven Williams booked a seat on Eurowings flight EW23
+// Booking reference number: #1542
+
+const swiss = {
+  airline: 'Swiss Air Lines',
+  iataCode: 'LX',
+  bookings: [],
+};
+
+book.call(swiss, 583, 'Mary Cooper'); //? Mary Cooper booked a seat on Swiss Air Lines flight LX583
+bookFlightWithReference(swiss, 583, 'Mary Cooper');
+// Mary Cooper booked a seat on Swiss Air Lines flight LX583
+// Booking reference number: #1542
+
+// APPLY METHOD
+// The apply method works similarly to the call method.
+// The only difference is that the apply method receives an array of arguments.
+// The apply method is rarely used in modern JavaScript.
+
+const flightData = [583, 'George Cooper'];
+book.apply(swiss, flightData); //? George Cooper booked a seat on Swiss Air Lines flight LX583
+bookFlightWithReference(swiss, ...flightData);
+// George Cooper booked a seat on Swiss Air Lines flight LX583
+// Booking reference number: #1542
