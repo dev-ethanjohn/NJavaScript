@@ -362,3 +362,35 @@ const addTaxRate = function (rate) {
 const addVAT2 = addTaxRate(0.23); //? function (value) { ... }
 console.log(addVAT2(100)); //? 123
 console.log(addVAT2(23)); //? 28.29
+
+// IMPORTANT (141): Immediately Invoked Function Expressions (IIFE)
+console.log('--- Immediately Invoked Function Expressions (IIFE) ---');
+
+const runOnce = function () {
+  console.log('This will never run again');
+};
+runOnce(); //? This will never run again
+
+// function() {
+//   console.log('This will never run again');
+// }
+// Uncaught SyntaxError: Function statements require a function name
+
+// IIFE (Immediately Invoked Function Expressions)
+// A function that is executed right after it's created.
+(function () {
+  console.log('This will never run again');
+  const isPrivate = 23;
+})();
+//? This will never run again
+
+(() => console.log('This will ALSO never run again'))();
+//? This will ALSO never run again
+
+{
+  const isPrivate = 23; //can't access isPrivate from outside
+  var notPrivate = 46; //can access notPrivate from outside
+}
+
+console.log(notPrivate); //? 46 (var is not block-scoped) Not recommended
+// console.log(isPrivate); //? Uncaught ReferenceError: isPrivate is not defined
