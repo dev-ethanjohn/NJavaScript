@@ -394,3 +394,37 @@ runOnce(); //? This will never run again
 
 console.log(notPrivate); //? 46 (var is not block-scoped) Not recommended
 // console.log(isPrivate); //? Uncaught ReferenceError: isPrivate is not defined
+
+// IMPORTANT (142): Closures
+console.log('--- Closures ---');
+
+// A closure is the closed-over variable environment of the execution context in which a function was created.
+// A closure gives a function access to all the variables of its parent function, even after the parent function has returned.
+// The function keeps a reference to its outer scope, which preserves the scope chain throughout time.
+// A closure makes sure that a function doesn't lose connection to variables that existed at the function's birthplace.
+
+const secureBooking = function () {
+  let passengerCount = 0;
+
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+
+// NOTE: A closure may remember the variables from the place where it was created, even if the function is executed outside that scope.
+// when we call the secureBooking function, its execution context is removed from the call stack. However, the inner function still has access to the variables of the outer function. This is because the inner function forms a closure over the variables of the outer function.
+// The closure has three scope chains:
+// 1. Variables from its own scope.
+// 2. Variables from the scope of the outer function.
+// 3. Global variables.
+const booker = secureBooking(); //? function () { ... }
+
+// if a variable is reached by closure, it cannot be garbage collected
+booker(); //? 1 passengers
+booker(); //? 2 passengers
+booker(); //? 3 passengers
+
+// IMPORTANT: Any function has access to the variable environment of the execution context of which the function was created
+// The booker function is created inside the secureBooking function.
+// The booker function has access to the passengerCount variable because it is defined in the same lexical scope as booker.
