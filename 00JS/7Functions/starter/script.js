@@ -431,3 +431,118 @@ booker(); //? 3 passengers
 
 // NOTE: We do NOT have to manually crate closures, this is a JS feature that happens automatically. We can't evem access closed-over variables/ private explicitly. A closure is NOT a tangible JS object.
 console.dir(booker);
+
+// IMPORTANT: (143): More closures examples
+// NOTE: EXAMPLE 1
+let f;
+
+const g = function () {
+  const a = 23;
+
+  f = function () {
+    console.log(a * 2);
+  };
+};
+
+const h = function () {
+  const b = 777;
+  f = function () {
+    //reborn again in h
+    console.log(b * 2);
+  };
+};
+
+g();
+f(); //? 46
+console.dir(f);
+
+// Reassigning f funct
+h();
+f(); //? 1554
+console.dir(f);
+
+// NOTE: EXAMPLE2
+const boardPassengers = function (n, wait) {
+  const perGroup = n / 3;
+
+  setTimeout(() => {
+    console.log(`We are boarding all ${n} passengers`);
+    console.log(`There are 3 groups, each with ${perGroup} passengers`);
+  }, wait * 1000);
+
+  console.log(`Will start boarding in ${wait} seconds`);
+};
+
+setTimeout(() => {
+  console.log('TIMER');
+}, 1000);
+
+// const perGroup = 1000; NOTE: the closure has priority over the scope chain
+boardPassengers(180, 3);
+// Will start boarding in 3 seconds
+// TIMER                                        //after 1 sec
+// We are boarding all 180 passengers           //after 1 sec + 2sec / 3sec
+// There are 3 groups, each with 60 passengers
+
+// IMPORTANT: MORE EXAMPLES
+// 1. Lexical Scoping, a function can access variables from the scope in which it was defined, not where it is called.
+
+function outer() {
+  const outerVar = "I'm from outer!";
+
+  function inner() {
+    console.log(outerVar); // ✅ Works! inner() can access outerVar
+  }
+
+  inner();
+}
+
+outer(); // Output: "I'm from outer!"
+
+// 2. Closures - When functoins remember their scope
+// A closure happends when a function is returned from another function, but it still remember the variables from its original scope.
+
+function outer() {
+  const secret = 'I know the secret!';
+
+  return function inner() {
+    console.log(secret); // ✅ Still works! inner() remembers secret
+  };
+}
+
+const myFunc = outer(); // outer() executes and returns inner()
+myFunc(); // Output: "I know the secret!"
+
+// 3. Closures are often un private variables or function factories.
+// Data Privary using closures
+function bankAccount(initialBalance) {
+  let balance = initialBalance; //Private variable
+
+  console.log('checking balance-----');
+
+  return {
+    // object
+    deposit(amount) {
+      balance += amount;
+      console.log(`Deposited: $${amount}. New balance: $${balance}`);
+    },
+    withdraw(amount) {
+      if (balance >= amount) {
+        balance -= amount;
+        console.log(`Withdre: $${amount}. New balance: $${balance}`);
+      } else {
+        console.log(`Insufficient funds!`);
+      }
+    },
+    checkBalance() {
+      console.log(`Balance: $${balance}`);
+    },
+  };
+}
+
+const myAccount = bankAccount(100); // Create an account with $100
+myAccount.deposit(50); // Output: Deposited: $50. New balance: $150
+myAccount.withdraw(30); // Output: Withdrew: $30. New balance: $120
+myAccount.checkBalance(); // Output: Balance: $120
+
+console.log(myAccount.balance); // ❌ Undefined! balance is private
