@@ -221,3 +221,26 @@ const movementsDescriptions = movements2.map((mov, i, arr) => {
 });
 
 console.log(movementsDescriptions);
+
+// IMPORTANT (157): The filter method
+console.log('----The filter method----');
+
+const movements3 = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const deposits = movements3.filter(function (mov) {
+  return mov > 0;
+});
+
+console.log(movements3); //? [200, 450, -400, 3000, -650, -130, 70, 1300]
+console.log(deposits); //? [200, 450, 3000, 70, 1300]
+
+const withdrawals = movements3.filter(mov => mov < 0);
+console.log(withdrawals); //?  [-400, -650, -130]
+
+// *using for of loop
+const deposits4 = [];
+for (const mov of movements3) if (mov > 0) deposits4.push(mov);
+console.log(deposits4); //? [200, 450, 3000, 70, 1300]
+
+const withdrawals4 = [];
+for (const mov of movements3) if (mov < 0) withdrawals4.push(mov);
+console.log(withdrawals4); //?  [-400, -650, -130]
