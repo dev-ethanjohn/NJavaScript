@@ -27,7 +27,6 @@ while (counterObject.done === false) {
 console.log("All done!");
 /*
 Object [Generator] {}
-1
 2
 3
 All done!

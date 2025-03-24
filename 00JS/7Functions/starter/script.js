@@ -398,7 +398,7 @@ console.log(notPrivate); //? 46 (var is not block-scoped) Not recommended
 // IMPORTANT (142): Closures
 console.log('--- Closures ---');
 
-// A closure is the closed-over variable environment of the execution context in which a function was created.
+// A closure is the closed-over variable environment of the execution context in which a function was created. even after that execution context is gone.
 // A closure gives a function access to all the variables of its parent function, even after the parent function has returned.
 // The function keeps a reference to its outer scope, which preserves the scope chain throughout time.
 // A closure makes sure that a function doesn't lose connection to variables that existed at the function's birthplace.
@@ -425,6 +425,9 @@ booker(); //? 1 passengers
 booker(); //? 2 passengers
 booker(); //? 3 passengers
 
-// IMPORTANT: Any function has access to the variable environment of the execution context of which the function was created
+// IMPORTANT: A closure makes sure that a func doesnt loose connection to variables existed at the functions's birth place (parent's scope).
 // The booker function is created inside the secureBooking function.
 // The booker function has access to the passengerCount variable because it is defined in the same lexical scope as booker.
+
+// NOTE: We do NOT have to manually crate closures, this is a JS feature that happens automatically. We can't evem access closed-over variables/ private explicitly. A closure is NOT a tangible JS object.
+console.dir(booker);
