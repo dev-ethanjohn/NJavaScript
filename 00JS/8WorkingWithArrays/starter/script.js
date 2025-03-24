@@ -270,3 +270,17 @@ const getMaxValue = movements4.reduce((prev, curr) => {
 }, movements4[0]);
 
 console.log(getMaxValue); //? 3000
+
+// IMPORTANT (160): Chaining methods
+console.log('----chaining methods----');
+
+const movements5 = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// PIPELINE
+const totalDepositsUSD = movements5
+  .filter(mov => mov > 0)
+  .map((mov, i, arr) => {
+    console.log(arr); //help for debugging
+    return mov * eurToUsd;
+  })
+  .reduce((result, mov) => result + mov, 0); //NOTE: We could ony chain new method if the previous returns a new array.
+console.log(totalDepositsUSD); //? 5522.000000000001
