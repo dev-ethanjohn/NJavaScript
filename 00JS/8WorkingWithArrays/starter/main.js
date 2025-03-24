@@ -81,3 +81,20 @@ const displayMovements = function (movements) {
 };
 
 displayMovements(account1.movements);
+
+const createUsernames = function (accs) {
+  // We use foreach instead of .map() so we wouldnt have to have separate array
+  accs.forEach(acc => {
+    acc.username = acc.owner //creating a new property username
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+
+createUsernames(accounts);
+console.log(accounts);
+
+// NOTE: ✔ Use .forEach() when modifying an existing array.
+// NOTE: ✔ Use .map() when creating a new transformed array.
