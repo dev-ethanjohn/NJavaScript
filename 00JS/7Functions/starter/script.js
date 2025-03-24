@@ -546,3 +546,22 @@ myAccount.withdraw(30); // Output: Withdrew: $30. New balance: $120
 myAccount.checkBalance(); // Output: Balance: $120
 
 console.log(myAccount.balance); // ❌ Undefined! balance is private
+
+// CHALLENGE
+//  Explain why the callback function from the event handler has access to the header element outside its scope.
+(function () {
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
+
+  document.querySelector('body').addEventListener('click', function () {
+    header.style.color = 'blue';
+  });
+})();
+
+//ANSWER:
+// When the event handler (function () { header.style.color = 'blue'; }) runs, header is not inside it.
+// But it still works! Why? Because the function remembers the variables from its parent scope (IIFE).
+// This is a closure at work:
+// Even though the IIFE already finished execution,
+// The callback function still has access to header!
+// Without closures, header would be garbage collected once the IIFE finished, and the event listener would not work. But thanks to closures, it persists!
