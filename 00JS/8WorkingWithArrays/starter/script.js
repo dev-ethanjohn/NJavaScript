@@ -71,7 +71,7 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
@@ -139,3 +139,30 @@ console.log(arr3.at(-2)); //? 11
 
 console.log('ethan'.at(2)); //? h
 console.log('ethan'.at(-1)); //? n
+
+// IMPORTANT (149): Looping Arrays: forEach
+console.log('----Looping Arrays: forEach----');
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// for (const movement of movements) {
+for (const [i, movement] of movements.entries()) {
+  if (movement > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${movement}`);
+  } else {
+    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(movement)}`); // converts to absolute value
+  }
+}
+
+console.log('-----FOR EACH-----');
+// parameter 0: current index
+// parameter 1: index
+
+// You can't have break/continue
+movements.forEach(function (mov, i, arr) {
+  if (mov > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${mov}`);
+  } else {
+    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(mov)}`); // converts to absolute value
+  }
+});
