@@ -262,3 +262,11 @@ console.log(balance); //? 3840
 let bal2 = 0;
 for (const mov of movements4) bal2 += mov;
 console.log(bal2); //? 3840
+
+// OTHER EXAMPLES
+// get maximum value
+const getMaxValue = movements4.reduce((prev, curr) => {
+  return curr > prev ? curr : prev;
+}, movements4[0]);
+
+console.log(getMaxValue); //? 3000
