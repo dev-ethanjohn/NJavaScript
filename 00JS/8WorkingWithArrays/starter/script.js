@@ -244,3 +244,21 @@ console.log(deposits4); //? [200, 450, 3000, 70, 1300]
 const withdrawals4 = [];
 for (const mov of movements3) if (mov < 0) withdrawals4.push(mov);
 console.log(withdrawals4); //?  [-400, -650, -130]
+
+// IMPORTANT: (158): The reduce Method
+console.log('----The reduce Method----');
+
+const movements4 = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// result -> accumulator (snowball)
+const balance = movements4.reduce((result, mov, i, arr) => {
+  console.log(`Iteration ${i}: ${result}`);
+  return result + mov;
+}, 0);
+
+console.log(balance); //? 3840
+
+// *Using for of loop
+let bal2 = 0;
+for (const mov of movements4) bal2 += mov;
+console.log(bal2); //? 3840
