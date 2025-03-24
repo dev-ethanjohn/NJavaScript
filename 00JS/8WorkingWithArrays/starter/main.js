@@ -92,6 +92,33 @@ const calcDisplayBalance = function (movements) {
 
 calcDisplayBalance(account1.movements);
 
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((result, mov) => result + mov, 0);
+
+  labelSumIn.textContent = `${incomes}€`;
+
+  const out = movements
+    .filter(mov => mov < 0)
+    .reduce((result, mov) => result + mov, 0);
+
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+
+  const interest = movements
+    .filter(deposit => deposit > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter((interest, i, arr) => {
+      console.log(arr);
+      return interest > 1;
+    })
+    .reduce((result, deposit) => result + deposit, 0);
+
+  labelSumInterest.textContent = `${interest}€`;
+};
+
+calcDisplaySummary(account1.movements);
+
 const createUsernames = function (accs) {
   // We use foreach instead of .map() so we wouldnt have to have separate array
   accs.forEach(acc => {
@@ -104,7 +131,7 @@ const createUsernames = function (accs) {
 };
 
 createUsernames(accounts);
-console.log(accounts);
+// console.log(accounts);
 
 // NOTE: ✔ Use .forEach() when modifying an existing array.
 // NOTE: ✔ Use .map() when creating a new transformed array.

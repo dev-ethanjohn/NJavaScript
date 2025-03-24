@@ -284,3 +284,5 @@ const totalDepositsUSD = movements5
   })
   .reduce((result, mov) => result + mov, 0); //NOTE: We could ony chain new method if the previous returns a new array.
 console.log(totalDepositsUSD); //? 5522.000000000001
+
+// NOTE: Be cautious with chaining methods by not overusing them as it can affect performance esp. for larger arrays. Also don't use methods that can mutate the original array such as `splice`, `sort` and `reverse`. Can use `slice` before  `sort` as a safer alternative
