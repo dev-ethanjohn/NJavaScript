@@ -286,3 +286,18 @@ const totalDepositsUSD = movements5
 console.log(totalDepositsUSD); //? 5522.000000000001
 
 // NOTE: Be cautious with chaining methods by not overusing them as it can affect performance esp. for larger arrays. Also don't use methods that can mutate the original array such as `splice`, `sort` and `reverse`. Can use `slice` before  `sort` as a safer alternative
+
+// IMPORTANT: (162): the find Method
+console.log('----the find method----');
+
+// find method -> retrieve 1 element of an array based on a condition
+// NOTE: returns the 1st element that satisfies the condition
+// It returns only an element, not an array
+const movements6 = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const firstWithdrawal = movements6.find(mov => mov < 0);
+console.log(firstWithdrawal); //? -400
+
+console.log(accounts);
+
+const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(account); //? {owner: 'Jessica Davis', movements: Array(8), interestRate: 1.5, pin: 2222}
