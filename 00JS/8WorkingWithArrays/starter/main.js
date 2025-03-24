@@ -82,6 +82,16 @@ const displayMovements = function (movements) {
 
 displayMovements(account1.movements);
 
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((result, mov) => {
+    return result + mov;
+  });
+
+  labelBalance.textContent = `${balance} EUR`;
+};
+
+calcDisplayBalance(account1.movements);
+
 const createUsernames = function (accs) {
   // We use foreach instead of .map() so we wouldnt have to have separate array
   accs.forEach(acc => {
