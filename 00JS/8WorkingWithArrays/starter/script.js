@@ -188,4 +188,36 @@ currenciesUnique.forEach(function (value, _, map) {
   console.log(`${value}: ${value}`);
 });
 
-//
+// IMPORTANT (155): The map method
+console.log('---The map method---');
+
+const movements2 = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const eurToUsd = 1.1;
+
+// *using functional programming
+const movementsUSD = movements2.map(mov => mov * eurToUsd);
+
+console.log(movements); //? [200, 450, -400, 3000, -650, -130, 70, 1300]
+console.log(movementsUSD); //? [220.00000000000003, 495.00000000000006, -440.00000000000006, 3300.0000000000005, -715.0000000000001, -143, 77, 1430.0000000000002]
+
+// *using for of loop
+const movementsUSDFor = [];
+for (const mov of movements) {
+  movementsUSDFor.push(mov * eurToUsd);
+}
+console.log(movementsUSDFor); //?  [220.00000000000003, 495.00000000000006, -440.00000000000006, 3300.0000000000005, -715.0000000000001, -143, 77, 1430.0000000000002]
+
+const movementsDescriptions = movements2.map((mov, i, arr) => {
+  // if (mov > 0) {
+  //   return `Movement ${i + 1}: You deposited ${mov}`;
+  // } else {
+  //   return `Movement ${i + 1}: You withdrew ${Math.abs(mov)}`;
+  // }
+  return `Movement ${i + 1}: You ${
+    mov > 0 ? 'deposited' : 'withdrew'
+  } ${Math.abs(mov)}`;
+
+  // NOTE: forEach creates sideEffects
+});
+
+console.log(movementsDescriptions);
