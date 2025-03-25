@@ -301,3 +301,34 @@ console.log(accounts);
 
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 console.log(account); //? {owner: 'Jessica Davis', movements: Array(8), interestRate: 1.5, pin: 2222}
+
+// IMPORTANT (166): findLast and findLastIndex methods
+console.log('----findLast and findLastIndex methods');
+// returns the  first last value of the array
+
+console.log(movements6); //? [200, 450, -400, 3000, -650, -130, 70, 1300]
+const lastWithdrawal = movements6.findLast(mov => mov < 0);
+console.log(lastWithdrawal); //? -130
+
+// find the last large movement more than 2000
+const message = function (mov) {
+  const lastLargeMovementIndex = mov.findLastIndex(mov => {
+    // positiive and negative larg movements greater than
+    return Math.abs(mov) >= 2000;
+  });
+  console.log(lastLargeMovementIndex); // 3
+
+  // To handle if there is no large movement since if nothing , it returns -1
+  if (lastLargeMovementIndex === -1) {
+    console.log('No large movements found.');
+  } else {
+    console.log(
+      `Your latest large movement was ${
+        mov.length - lastLargeMovementIndex - 1
+      } movements ago`
+    );
+  }
+  return lastLargeMovementIndex;
+};
+
+message(movements6); //?Your latest large movement was 4 movements ago
