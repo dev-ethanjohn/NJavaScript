@@ -359,6 +359,7 @@ console.log(movements6.filter(depositOnly)); //? [200, 450, 3000, 70, 1300]
 // IMPORTANT (168): flat and flatMap
 console.log('----flat and flatMap----');
 // `flat()` -> converts 1 deep Nested array into flatten single array by default. You can indicate the param value based off the level of depth.
+//  flat and flatMap() does not mutate the array.
 
 const arr4 = [[1, 2, 3], [4, 5, 6], 7, 8];
 console.log(arr4.flat()); //? [1, 2, 3, 4, 5, 6, 7, 8]
@@ -395,3 +396,26 @@ const overallBalance3 = accounts
   .flatMap(acc => acc.movements)
   .reduce((total, mov) => total + mov, 0);
 console.log(overallBalance3); //? 17840
+
+// IMPORTANT (170): Sorting Arrays
+console.log('---Sorting Arrays---');
+// sort() mutates the original array
+
+//  *With strings
+const owners = ['Etan', 'Zack', 'Ben', 'Anne'];
+console.log(owners.sort()); //? ['Anne', 'Ben', 'Etan', 'Zack']
+console.log(owners); //? ['Anne', 'Ben', 'Etan', 'Zack'] *Mutation
+
+// *With numbers
+console.log(movements6); //? [200, 450, -400, 3000, -650, -130, 70, 1300]
+// console.log(movements.sort()); //  [-130, -400, -650, 1300, 200, 3000, 450, 70] //*Won't work as it converts it first to string before it sorts out
+
+const sortNum = movements6.sort((a, b) => {
+  // returns in ASCENDING order from small to large
+  return a - b;
+
+  // return b - a;  -> DESCENDING
+});
+
+console.log(sortNum); //? [-650, -400, -130, 70, 200, 450, 1300, 3000]
+console.log(movements6); //? [-650, -400, -130, 70, 200, 450, 1300, 3000] *Mutated
