@@ -10,6 +10,7 @@ const account1 = {
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2, // %
   pin: 1111,
+  type: 'premium',
 };
 
 const account2 = {
@@ -17,6 +18,7 @@ const account2 = {
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
+  type: 'standard',
 };
 
 const account3 = {
@@ -24,6 +26,7 @@ const account3 = {
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 3333,
+  type: 'premium',
 };
 
 const account4 = {
@@ -31,6 +34,7 @@ const account4 = {
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
+  type: 'basic',
 };
 
 const accounts = [account1, account2, account3, account4];
@@ -419,3 +423,63 @@ const sortNum = movements6.sort((a, b) => {
 
 console.log(sortNum); //? [-650, -400, -130, 70, 200, 450, 1300, 3000]
 console.log(movements6); //? [-650, -400, -130, 70, 200, 450, 1300, 3000] *Mutated
+
+// IMPORTANT (171): Array Grouping
+console.log('---- array grouping ----');
+
+console.log(movements6); //? [-650, -400, -130, 70, 200, 450, 1300, 3000]
+
+const groupedMovements = Object.groupBy(movements6, movement =>
+  movement > 0 ? 'deposit' : 'withdrawals'
+);
+console.log(groupedMovements); //*returns an object containng 2 arrays 1 each for 'deposit' and 'withdrawals'
+
+const groupedByActivity = Object.groupBy(accounts, acc => {
+  const movementCount = acc.movements.length;
+
+  if (movementCount >= 8) {
+    return 'very active';
+  } else if (movementCount >= 4) {
+    return 'active';
+  } else if (movementCount >= 1) {
+    return 'moderate';
+  } else {
+    return 'inactive';
+  }
+});
+
+console.log(groupedByActivity);
+
+// *Using REDUCE as groupBy still not widely used and accessible
+const groupedByActivity2 = accounts.reduce((acc, account) => {
+  const movementCount = account.movements.length;
+  let category;
+
+  if (movementCount >= 8) {
+    category = 'very active';
+  } else if (movementCount >= 4) {
+    category = 'active';
+  } else if (movementCount >= 1) {
+    category = 'moderate';
+  } else {
+    category = 'inactive';
+  }
+
+  if (!acc[category]) {
+    acc[category] = [];
+  }
+
+  acc[category].push(account);
+
+  return acc;
+}, {});
+
+console.log(groupedByActivity2);
+
+// const groupAccounts = Object.groupBy(accounts, account => {
+//   return account.type;
+// });
+
+// Using Destructuring
+const groupAccounts = Object.groupBy(accounts, ({ type }) => type);
+console.log(groupAccounts);
