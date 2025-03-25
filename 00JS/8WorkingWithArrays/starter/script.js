@@ -483,3 +483,41 @@ console.log(groupedByActivity2);
 // Using Destructuring
 const groupAccounts = Object.groupBy(accounts, ({ type }) => type);
 console.log(groupAccounts);
+
+// IMPORTANT (172): More ways of creating and filling arrays
+console.log('---More ways of creating and filling arrays----');
+
+const arr5 = [1, 2, 3, 4, 5, 6, 7];
+console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+
+// *fill
+const x = new Array(7);
+console.log(x);
+
+x.fill(1, 3, 5);
+console.log(x); //?  [empty × 3, 1, 1, empty × 2]
+arr5.fill(23, 2, 6);
+console.log(arr5); //?  [1, 2, 23, 23, 23, 23, 7]
+
+// *Array.from
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y); //? [1, 1, 1, 1, 1, 1, 1]
+
+const z = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(z); //? [1, 2, 3, 4, 5, 6, 7]
+
+// can use Array.from on querySelectorAll() -> returns a node list then convert it to array
+// can also use when we dont have data on code but on UI
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+
+  // *We can also use spread, but then you have to map it separately, using Array.from you can directly map it on the second parameter as a callback
+  // const movementsUI = [...document.querySelectorAll('.movements__value')].map(
+  //   el => Number(el.textContent.replace('€', ''))
+  // );
+
+  console.log(movementsUI);
+});
