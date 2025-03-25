@@ -562,4 +562,141 @@ const newMov = movements6.with(1, 2000);
 console.log(newMov); //? [-650, 2000, -130, 70, 200, 450, 1300, 3000]
 console.log(movements6); //? [-650, -400, -130, 70, 200, 450, 1300, 3000]
 
-//
+// IMPORTANT (174): Which Array Method to Use?
+// 1. Ask: What do I want to do.
+/*
+📌 **JavaScript Array Methods Guide** 📌
+
+This guide categorizes various JavaScript array methods based on their behavior and usage.
+
+---------------------------------------------------
+NOTE: 🔹 Mutates Original Array (Changes the Array)
+---------------------------------------------------
+*Add to original:
+  - `.push()` → Add element(s) to the end.
+  - `.unshift()` → Add element(s) to the start.
+
+*Remove from original:
+  - `.pop()` → Remove the last element.
+  - `.shift()` → Remove the first element.
+  - `.splice(start, deleteCount, ...items)` → Remove or replace elements at any position.
+
+*Other mutating methods:
+  - `.reverse()` → Reverse the array in place.
+  - `.sort()` → Sorts elements and modifies the original array.
+  - `.fill(value, start, end)` → Fills elements in a range with a static value.
+
+⚠️ *Avoid mutating methods when possible to prevent unintended side effects!*
+
+---------------------------------------------------
+NOTE: 🔹 Creates a New Array (Does NOT Mutate)**
+---------------------------------------------------
+*Transforms each element (same length as original):
+  - `.map(callback)` → Creates a new array with modified elements.
+
+*Filtering:
+  - `.filter(callback)` → Returns a new array with elements that pass the test.
+
+*Extracting a portion:
+  - `.slice(start, end)` → Returns a shallow copy of a portion of the array.
+
+*Reversed without mutating original:
+  - `.toReversed()` → Returns a reversed copy of the array.
+
+*Sorted without mutating original:
+  - `.toSorted()` → Returns a sorted copy of the array.
+
+*Spliced (deleted elements) without mutating:
+  - `.toSpliced(start, deleteCount, ...items)` → Returns a new array with items removed/replaced.
+
+*Replacing an item:
+  - `.with(index, value)` → Returns a new array with one replaced item.
+
+*Flattening arrays:
+  - `.flat(depth)` → Flattens nested arrays up to the specified depth.
+  - `.flatMap(callback)` → Maps and flattens in one step.
+
+*Joining two arrays:
+  - `.concat(array2, array3, ...)` → Combines multiple arrays into a new array.
+
+---------------------------------------------------
+NOTE: 🔹 Getting an Index
+---------------------------------------------------
+*Based on value:
+  - `.indexOf(value)` → Returns the first index of the value (-1 if not found).
+
+*Based on a test condition:
+  - `.findIndex(callback)` → Returns the index of the first matching element.
+  - `.findLastIndex(callback)` → Returns the index of the last matching element.
+
+---------------------------------------------------
+NOTE: 🔹 Finding an Array Element
+---------------------------------------------------
+*Based on a test condition:
+  - `.find(callback)` → Returns the first element that matches the condition.
+  - `.findLast(callback)` → Returns the last element that matches the condition.
+
+*Based on position:
+  - `.at(index)` → Returns the element at the given index (supports negative indexing).
+
+---------------------------------------------------
+NOTE: 🔹 Checking if an Array Includes an Element
+---------------------------------------------------
+*Based on a value:
+  - `.includes(value)` → Returns `true` if the array contains the value.
+
+*Based on a test condition:
+  - `.some(callback)` → Returns `true` if at least one element matches the condition.
+  - `.every(callback)` → Returns `true` if all elements match the condition.
+
+---------------------------------------------------
+NOTE: 🔹 Transforming an Array to a Value
+---------------------------------------------------
+*Based on an accumulator function:**
+  - `.reduce(callback, initialValue)` → Reduces the array to a single value (e.g., sum, max, concatenation, etc.).
+
+---------------------------------------------------
+NOTE: 🔹 Creating a New String
+---------------------------------------------------
+*Joining elements with a separator:**
+  - `.join(separator)` → Joins elements into a string.
+
+---------------------------------------------------
+NOTE: 🔹 Just Looping Over an Array (No New Array)
+---------------------------------------------------
+*Perform an operation on each element:**
+  - `.forEach(callback)` → Loops through the array but does not return a new one.
+
+📢 **Best Practices:**
+- Use **non-mutating methods** whenever possible to maintain predictable behavior.
+- `.map()`, `.filter()`, `.slice()`, and `.reduce()` are great for functional programming.
+- Be mindful of performance when working with large datasets.
+*/
+
+/**
+ * 📌 More Array Tools and Techniques in JavaScript 📌
+ *
+ NOTE:  🔹 Grouping an array by categories:
+ *   - `Object.groupBy`
+ *     Groups array elements into categories based on a provided function.
+ *
+ NOTE: 🔹 Creating a new array from scratch:
+ *   - `Array.from(iterable, mapFn?)`
+ *     Creates an array from an iterable object or array-like structure, optionally mapping elements.
+ *
+ NOTE: 🔹 Creating a new array with `n` empty positions:
+ *   - `new Array(n)`
+ *     Creates an array with `n` empty slots. Usually combined with `.fill()` to initialize values.
+ *
+ NOTE: 🔹 Joining 2 or more arrays:
+ *   - `[...arr1, ...arr2]`
+ *     Uses the spread operator to merge multiple arrays into a new array.
+ *
+ NOTE: 🔹 Creating a new array containing unique values from an existing array:
+ *   - `[...new Set(arr)]`
+ *     Converts an array into a `Set` to remove duplicates, then spreads it back into an array.
+ *
+ NOTE: 🔹 Creating a new array containing unique elements that are present in both `arr1` and `arr2`:
+ *   - `[...new Set(arr1).intersection(new Set(arr2))]`
+ *     Finds common elements between two arrays by converting them into sets and using `.intersection()`.
+ */
