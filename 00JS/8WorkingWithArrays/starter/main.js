@@ -63,11 +63,19 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 // DOM changes
 // better create functions than doing the functionality in a global variable
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   // emptying first the contaner (setter)
   containerMovements.innerHTML = '';
 
-  movements.forEach(function (mov, i) {
+  // sorting functionality
+  // use slice to take a copy so that sort won't mutate the original array
+  const movs = sort
+    ? movements.slice().sort((a, b) => {
+        return a - b;
+      })
+    : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
@@ -239,7 +247,15 @@ btnClose.addEventListener('click', function (e) {
     // hide the ui
     containerApp.style.opacity = 0;
   }
-
   // clears
   inputCloseUsername.value = inputClosePin.value = '';
+});
+
+// SORTING
+let sorted = false;
+
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted; //*toggles
 });
