@@ -700,3 +700,66 @@ NOTE: 🔹 Just Looping Over an Array (No New Array)
  *   - `[...new Set(arr1).intersection(new Set(arr2))]`
  *     Finds common elements between two arrays by converting them into sets and using `.intersection()`.
  */
+
+//  ARRAY Exercises
+// 1. calculate the total amount deposited of all accounts in the bank
+const bankDepositSum = accounts
+  // .map(acc => acc.movements)
+  // .flat();
+  .flatMap(acc => acc.movements)
+  .filter(mov => mov > 0)
+  .reduce((sum, cur) => sum + cur, 0);
+
+console.log(bankDepositSum); //? 25180
+
+// 2. Count how many deposits in the bank with at least 1000
+// SOLUTION 1
+// const numDeposits1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov >= 1000).length;
+
+// console.log(numDeposits1000); //? 6
+
+// SOLUTION 2 (MORE EFFICIENT)
+// using reduce to count the length that satisfies a condition
+const numDeposits1000 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
+
+console.log(numDeposits1000); //? 6
+
+let a = 10;
+console.log(a++); //10 *still return the old value.  NOTE: USE ++ prefix for this isntead
+console.log(a); //1
+
+// 3. Create a new object that conatins the sums of all deposits and withdrawals
+const { deposits2, withdrawals2 } = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (sums, cur) => {
+      // cur > 0 ? (sums.deposits2 += cur) : (sums.withdrawals2 += cur);
+      sums[cur > 0 ? 'deposits2' : 'withdrawals2'] += cur;
+      return sums;
+    },
+    { deposits2: 0, withdrawals2: 0 }
+  );
+// console.log(sums); //? {deposits: 25180, withdrawals: -7340}
+console.log(deposits2, withdrawals2); //? 25180 -7340
+
+// 4. Create a function that converts to a title case with some exeptions
+// this is a nice title -> This Is a Nice Title
+
+const convertToTitleCase = function (title) {
+  const capitalized = str => str[0].toUpperCase() + str.slice(1);
+
+  const exceptions = ['a', 'am', 'the', 'but', 'or', 'on', 'in', 'with'];
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(str => (exceptions.includes(str) ? str : capitalized(str)))
+    .join(' ');
+
+  return titleCase;
+};
+
+console.log(convertToTitleCase('this is a nice tItle')); //? This Is a Nice Title
