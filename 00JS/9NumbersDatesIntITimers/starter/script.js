@@ -348,3 +348,24 @@ labelBalance.addEventListener('click', function () {
     if (i % 3 === 0) row.style.backgroundColor = 'blue';
   });
 });
+
+// IMPORTANT (182): Numeric Separators
+console.log('---Numeric Separators---');
+
+const diameter = 28_746_000_000;
+console.log(diameter); //? 28746000000
+
+const priceCents = 345_99;
+console.log(priceCents); //? 34599
+
+const transferFee = 15_00;
+const transferFee1 = 1_500;
+console.log(transferFee); //? 1500
+console.log(transferFee1); //? 1500
+
+const PI = 3.1415;
+console.log(PI); //? 3.1415
+
+console.log(+'230000'); //? 230000
+// NOTE: Dont use underscores when you store a number from a string from an api or to an API.
+console.log(parseInt('230_000')); //? 230
