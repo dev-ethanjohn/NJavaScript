@@ -332,3 +332,14 @@ const message = function (mov) {
 };
 
 message(movements6); //?Your latest large movement was 4 movements ago
+
+// IMPORTANT: (167): some and every
+console.log('---- some and every ----');
+
+// `includes` test only for equality
+console.log(movements6.includes(-130)); //? true
+
+//NOTE  to test for condition, we need `some`
+// The .some() method tests whether at least one element in the array satisfies the provided condition (a callback function)
+const anyDeposits = movements6.some(mov => mov > 0);
+console.log(anyDeposits); //? true
