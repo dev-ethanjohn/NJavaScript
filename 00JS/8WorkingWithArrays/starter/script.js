@@ -341,5 +341,17 @@ console.log(movements6.includes(-130)); //? true
 
 //NOTE  to test for condition, we need `some`
 // The .some() method tests whether at least one element in the array satisfies the provided condition (a callback function)
+//* SOME
 const anyDeposits = movements6.some(mov => mov > 0);
 console.log(anyDeposits); //? true
+
+//* EVERY
+// returns true if all elements satisfies the condition
+console.log(movements6.every(mov => mov > 0)); //? false
+console.log(account4.movements.every(mov => mov >= 0)); //? true
+
+// Separate callback (much more flexible and reusable)
+const depositOnly = mov => mov > 0;
+console.log(movements6.some(depositOnly)); //? true
+console.log(movements6.every(depositOnly)); //? false
+console.log(movements6.filter(depositOnly)); //? [200, 450, 3000, 70, 1300]
