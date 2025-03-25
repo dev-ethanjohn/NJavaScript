@@ -521,3 +521,45 @@ labelBalance.addEventListener('click', function () {
 
   console.log(movementsUI);
 });
+
+// IMPORTANT (173): Non-Destructive Alternatives
+console.log('---Non Destructive Alternatives----');
+//NOTE:  Destructive (Mutating) Methods
+// push()	Adds elements to the end of an array.
+// pop()	Removes the last element from an array.
+// shift()	Removes the first element from an array.
+// unshift()	Adds elements to the beginning of an array.
+// splice()	Removes, replaces, or adds elements at any index.
+// sort()	Sorts the array in place (default: converts to strings and sorts lexicographically).
+// reverse()	Reverses the array in place.
+// fill()	Fills elements in an array with a static value in place.
+// copyWithin()	Copies part of an array to another location in place.
+
+// NOTE:  Non-Destructive (Non-Mutating) Methodsconcat()	Merges arrays and returns a new array.
+// slice()	Extracts part of an array and returns a new array.
+// map()	Returns a new array with modified values.
+// filter()	Returns a new array with elements that match a condition.
+// reduce()	Returns a single new value (does not modify the array).
+// flat()	Returns a new flattened array.
+// flatMap()	Maps and flattens in one step, returning a new array.
+// join()	Returns a new string without modifying the array.
+// toSorted()	Returns a sorted copy (non-mutating alternative to sort()).
+// toReversed()	Returns a reversed copy (non-mutating alternative to reverse()).
+// toSpliced()	Returns a new array with spliced elements (non-mutating alternative to splice()).
+
+console.log(movements6); //?  [-650, -400, -130, 70, 200, 450, 1300, 3000]
+// using slice to create a new copy to prevent mutation
+// const reversedMov = movements6.slice().reverse();
+
+// *using shortcut
+const reversedMov = movements6.toReversed();
+console.log(reversedMov); //? [3000, 1300, 450, 200, 70, -130, -400, -650]
+console.log(movements6); //?  [-650, -400, -130, 70, 200, 450, 1300, 3000]
+
+// sorted -> toSorted()
+// movements6[1] = 2000;
+const newMov = movements6.with(1, 2000);
+console.log(newMov); //? [-650, 2000, -130, 70, 200, 450, 1300, 3000]
+console.log(movements6); //? [-650, -400, -130, 70, 200, 450, 1300, 3000]
+
+//
