@@ -355,3 +355,43 @@ const depositOnly = mov => mov > 0;
 console.log(movements6.some(depositOnly)); //? true
 console.log(movements6.every(depositOnly)); //? false
 console.log(movements6.filter(depositOnly)); //? [200, 450, 3000, 70, 1300]
+
+// IMPORTANT (168): flat and flatMap
+console.log('----flat and flatMap----');
+// `flat()` -> converts 1 deep Nested array into flatten single array by default. You can indicate the param value based off the level of depth.
+
+const arr4 = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr4.flat()); //? [1, 2, 3, 4, 5, 6, 7, 8]
+
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat(2)); //? [1, 2, 3, 4, 5, 6, 7, 8]
+
+// *Using regular
+const accountMovements = accounts.map(acc => acc.movements);
+console.log(accountMovements);
+// [200, 450, -400, 3000, -650, -130, 70, 1300]
+// [5000, 3400, -150, -790, -3210, -1000, 8500, -30]
+// [200, -200, 340, -300, -20, 50, 400, -460]
+// [430, 1000, 700, 50, 90]
+const flattenedMovements = accountMovements.flat();
+console.log(flattenedMovements); //? [200, 450, -400, 3000, -650, -130, 70, 1300, 5000, 3400, -150, -790, -3210, -1000, 8500, -30, 200, -200, 340, -300, -20, 50, 400, -460, 430, 1000, 700, 50, 90]
+
+const overallBalance = flattenedMovements.reduce(
+  (total, mov) => total + mov,
+  0
+);
+console.log(overallBalance); //? 17840
+
+//* Using chaining
+const overallBalance2 = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((total, mov) => total + mov, 0);
+console.log(overallBalance2); //? 17840
+
+// *flatMap
+// flatMap can't go more deeper than 1 level
+const overallBalance3 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((total, mov) => total + mov, 0);
+console.log(overallBalance3); //? 17840
