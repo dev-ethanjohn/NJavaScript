@@ -369,3 +369,33 @@ console.log(PI); //? 3.1415
 console.log(+'230000'); //? 230000
 // NOTE: Dont use underscores when you store a number from a string from an api or to an API.
 console.log(parseInt('230_000')); //? 230
+
+// IMPORTANT (183): Working with BigInt
+console.log('---Working with BigInt---');
+
+//NOTE: Any int bigger than 9007199254740991 is not safe
+console.log(2 ** 53 - 1); //? 9007199254740991
+console.log(Number.MAX_SAFE_INTEGER); //? 9007199254740991
+
+console.log(2328946294249240240268786402424n); //? 2328946294249240240268786402424n
+console.log(BigInt(928293239273)); //? 928293239273n
+
+// Operations
+console.log(10000n + 10000n); //? 20000n
+console.log(7927498247294824024n * 721492749124n); //? 5719632504116434181211560154976n
+//console.log(Math.sqrt(16n)) //* won't work
+
+// NOTE: we cant mix Integers with BigInt
+// Exceptions
+const huge = 27983276498264924720942424242424n;
+const num = 23;
+console.log(huge * BigInt(num)); //? 643615359460093268581675757575752n *Have to convert first from number to BigInt
+
+console.log(20n > 15); //? true
+console.log(20n === 20); //? false
+
+console.log(huge + ' is REALLY BIG!'); //? 27983276498264924720942424242424 is REALLY BIG! *this is mixed but because of type coercion with string
+
+// Division
+console.log(10n / 3n); //? 3n *returns the closest BigInt
+console.log(10 / 3); //? 3.3333333333333335
