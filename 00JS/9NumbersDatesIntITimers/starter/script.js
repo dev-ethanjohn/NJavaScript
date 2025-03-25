@@ -399,3 +399,43 @@ console.log(huge + ' is REALLY BIG!'); //? 27983276498264924720942424242424 is R
 // Division
 console.log(10n / 3n); //? 3n *returns the closest BigInt
 console.log(10 / 3); //? 3.3333333333333335
+
+// IMPORTANT (184): Creating Dates
+console.log('---Creating Dates---');
+
+// Create a date
+const now = new Date();
+console.log(now); //? Tue Mar 25 2025 20:46:57 GMT+0800 (Philippine Standard Time) *sample at thh time of logging
+
+console.log(new Date('Aug 02 2020 18:05:41')); //? Sun Aug 02 2020 18:05:41 GMT+0800 (Philippine Standard Time)
+
+console.log(new Date('December 24, 2015')); //? Thu Dec 24 2015 00:00:00 GMT+0800 (Philippine Standard Time)
+
+console.log(new Date(account1.movementsDates[0])); //? Tue Nov 19 2019 05:31:17 GMT+0800 (Philippine Standard Time)
+
+//  10 === November (month index starts at 0)
+console.log(new Date(2037, 10, 19, 15, 23, 5)); //? Thu Nov 19 2037 15:23:05 GMT+0800 (Philippine Standard Time)
+console.log(new Date(2037, 10, 33)); //? Thu Dec 03 2037 00:00:00 GMT+0800 (Philippine Standard Time) *It autocorrects and jumps to next date in excess
+
+console.log(new Date(0)); //? Thu Jan 01 1970 08:00:00 GMT+0800 (Philippine Standard Time)
+// 3 days later
+console.log(new Date(3 * 24 * 60 * 60 * 1000)); //? Sun Jan 04 1970 08:00:00 GMT+0800 (Philippine Standard Time)
+
+// Working with date object
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future); //? Thu Nov 19 2037 15:23:00 GMT+0800 (Philippine Standard Time)
+console.log(future.getFullYear()); //? 2037
+console.log(future.getMonth()); //? 10
+console.log(future.getDate()); //? 19
+console.log(future.getDay()); //? 4 *Thursday is 5th day (4) of the week as getDay starts from 0
+console.log(future.getHours()); // ?15
+console.log(future.getMinutes()); // ?23
+console.log(future.getSeconds()); // ?0
+console.log(future.toISOString()); //? 2037-11-19T07:23:00.000Z
+console.log(future.getTime()); //? 2142228180000 *total miliseconds
+
+console.log(new Date(2142228180000)); //? Thu Nov 19 2037 15:23:00 GMT+0800 (Philippine Standard Time)
+
+console.log(Date.now()); //? 1742907499829
+future.setFullYear(2040);
+console.log(future); //? Mon Nov 19 2040 15:23:00 GMT+0800 (Philippine Standard Time)
