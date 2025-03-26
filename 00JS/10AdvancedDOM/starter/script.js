@@ -207,7 +207,7 @@ console.log('---Styles, Attributes, and Classes----');
 // Styles
 // Sets to inline styles in HTML
 message.style.backgroundColor = '#37383d';
-message.style.width = '120%';
+message.style.width = '100vw';
 
 console.log(message.style.height); //*cannot read it unless we put it manuall in the DOM w/ JS (returns an empty string)
 console.log(getComputedStyle(message).height); //? 49px *can read styles set via CSS files or not directly inline
@@ -459,9 +459,9 @@ console.log(secondH1.nextSibling); //*not used alot
 console.log(secondH1.parentElement.children);
 
 // selects all siblings (including self) of secondH1, then scales down every sibling except itself.
-// secondH1.parentElement.children returns an HTMLCollection, but we can spread it to convert it to an array and then loop over using forEach
-[...secondH1.parentElement.children].forEach(function (el) {
-  if (el !== secondH1) {
-    el.style.transform = 'scale(0.5)';
-  }
-});
+//* secondH1.parentElement.children returns an HTMLCollection, but we can spread it to convert it to an array and then loop over using forEach
+// [...secondH1.parentElement.children].forEach(function (el) {
+//   if (el !== secondH1) {
+//     el.style.transform = 'scale(0.5)';
+//   }
+// });
