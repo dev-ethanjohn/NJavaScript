@@ -281,3 +281,129 @@ setTimeout(() => {
 
 // NOTE: 3RD WAY TO ADD EVENT //*DO NOT DO THIS EVER
 // Add the attribute on the HTML ex: `onclick="alert('Alert')"
+
+// IMPORTANT: (200): Event Propagation: Bubbling and capturing
+
+/**
+ * 📝 **Event Bubbling and Capturing**
+ *
+ * Event bubbling and capturing are two phases of event propagation in the DOM.
+ * Understanding these phases is crucial for handling events effectively.
+ *
+ * ## Event Propagation Phases
+ *
+ * 1. **Capturing Phase**:
+ *    - Events start at the outermost element (e.g., `<html>`).
+ *    - The event "captures" elements as it moves inward toward the target element.
+ *    - Useful for intercepting events before they reach the target.
+ *
+ * 2. **Target Phase**:
+ *    - The event reaches the exact element where the event occurred.
+ *    - This phase occurs after the capturing phase and before the bubbling phase.
+ *
+ * 3. **Bubbling Phase**:
+ *    - After reaching the target, the event "bubbles up" from the innermost element to the outermost element.
+ *    - Useful for handling events that affect parent elements.
+ *
+ * ## Example Code
+ *
+ * ```javascript
+ * // HTML Structure
+ * <div class="container">
+ *   <button id="button">Click Me</button>
+ * </div>
+ *
+ * // JavaScript
+ * document.querySelector('.container').addEventListener('click', () => {
+ *   console.log('Clicked on container');
+ * });
+ *
+ * document.querySelector('#button').addEventListener('click', () => {
+ *   console.log('Clicked on button');
+ * });
+ * ```
+ *
+ * ### Explanation:
+ * - When you click the `<button>`, the event propagates through the DOM tree.
+ * - The `click` event starts at the `<button>` and bubbles up to its parent elements.
+ * - If you add an event listener to both the `<button>` and its parent (`<div>`).
+ *
+ * ## Event Propagation Order
+ *
+ * 1. **Capturing Phase**:
+ *    - The event travels from the outermost element (`<html>` → `<body>` → `<section>` → `<p>` → `<a>`).
+ *    - This phase is rarely used because most developers rely on the bubbling phase.
+ *
+ * 2. **Target Phase**:
+ *    - The event reaches the exact element where the event occurred.
+ *    - You can handle the event specifically for the target element.
+ *
+ * 3. **Bubbling Phase**:
+ *    - The event bubbles up from the target element outward.
+ *    - Useful for handling events on parent elements.
+ *
+ * ## Preventing Default Behavior
+ * - Use `event.preventDefault()` to stop default browser behavior (e.g., form submission).
+ *
+ * ## Stopping Event Propagation
+ * - Use `event.stopPropagation()` to prevent the event from bubbling or capturing further.
+ *
+ * ## Example with Event Delegation
+ * ```javascript
+ * document.querySelector('.container').addEventListener('click', (event) => {
+ *   if (event.target.tagName === 'BUTTON') {
+ *     console.log('Button clicked!');
+ *   }
+ * });
+ * ```
+ *
+ * ## Key Points
+ * - Event bubbling is more commonly used than capturing.
+ * - Use `.stopPropagation()` to control event propagation.
+ *
+ * ## References
+ * - [MDN Web Docs: Event Propagation](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events)
+ *
+ * ## Best Practices
+ * - Use event delegation for dynamic content.
+ * - Handle events at the appropriate phase based on your requirements.
+ */
+
+// IMPORTANT: (201): Event Propagation in Practice
+console.log('----Event Propagation in Practice----');
+
+// random int
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+
+const randomColor = () =>
+  `rgb(${randomInt(0, 255)},${randomInt(0, 255)}, ${randomInt(0, 255)} )`;
+
+document.querySelector('.nav__link').addEventListener('click', function (e) {
+  //NOTE: the this keywords points to the element the event hadnler is attached to; is similar to currentTarget
+  this.style.backgroundColor = randomColor();
+  // console.log('LINK target:', e.target); // <a> (always the clicked element)
+  console.log('LINK currentTarget:', e.currentTarget); // <a> (since event listener is on <a>)
+  console.log(e.currentTarget === this); //? true
+
+  // STOP THE EVENT TO BUBBLE
+  // e.stopPropagation();
+});
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  // console.log('CONTAINER target:', e.target); // <a> (the original clicked element)
+  console.log('CONTAINER currentTarget:', e.currentTarget); // <ul> (event listener attached to <ul>)
+});
+
+document.querySelector('.nav').addEventListener(
+  'click',
+  function (e) {
+    // console.log('NAV target:', e.target); // <a> (original clicked element)
+    console.log('NAV currentTarget:', e.currentTarget); // <nav> (event listener attached to <nav>)
+  }
+  // no longer listen to bubbling phase (RARELY USED)
+  // true
+);
+
+// e.target → The element that was actually clicked (origin of the event) Usually the same.
+// e.currentTarget → The element that the event handler is attached to (the current element handling the event).
