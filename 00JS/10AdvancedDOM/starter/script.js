@@ -32,6 +32,40 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+//* IMPLEMENT SMOOTH SCROLLING
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  // This is relative to the viewport, not the whole page.
+  const s1coords = section1.getBoundingClientRect();
+
+  // console.log(s1coords);
+  // console.log(e.target.getBoundingClientRect);
+  // console.log('Current scroll (X/Y)', window.pageXOffset, window.pageYOffset);
+
+  // console.log(
+  //   'height/width viewpost',
+  //   document.documentElement.clientHeight,
+  //   document.documentElement.clientWidth
+  // );
+
+  //Scrolling
+  // *For more complex and more controlled use case
+  // window.scrollTo({
+  //   left: s1coords.left + window.scrollX,
+  //   top: s1coords.top + window.scrollY,
+  //   behavior: 'smooth',
+  // });
+
+  // * for basic smooth scroll to section/s
+  section1.scrollIntoView({ behavior: 'smooth' });
+
+  //  👉 Use scrollIntoView() for most cases—it’s simple and does the job well.
+
+  // 👉 Use window.scrollTo() if you need custom offsets (e.g., accounting for a sticky navbar).
+});
+
 ////////////////////////
 // LESSON
 // IMPORTANT: (195): How the DOM Really Works
