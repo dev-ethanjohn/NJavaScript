@@ -418,3 +418,50 @@ document.querySelector('.nav').addEventListener(
 
 // IMPORTANT (202): Event delegation
 console.log('----Event delegation----');
+
+// refer to main.js (doing the navigation)
+
+// IMPORTANT: (203): DOM Traversing
+console.log('---DOM Traversing----');
+const secondH1 = document.querySelector('h1');
+
+//* going downwards: child (h1 has 3 children)
+console.log(secondH1.querySelectorAll('.highlight'));
+console.log(secondH1.childNodes);
+console.log(secondH1.children);
+secondH1.firstElementChild.style.color = 'white';
+secondH1.lastElementChild.style.color = 'orangered';
+
+// NOTE: Queries (querySelector, querySelectorAll) can select all descendants (deeply nested elements) as long as they match the selector.
+// NOTE: childNodes returns all types of child nodes (text, comments, elements, etc) *NOT RECOMMENDED
+// NOTE: children returns only direct child elements (not go deeper into nested elements)
+
+// *going upwadrs: parents
+// Direct parent
+console.log(secondH1.parentNode);
+console.log(secondH1.parentElement); //* Usually preferred
+
+// Finds the closest matching ancestor, moving up the DOM tree.
+secondH1.closest('.header').style.background = 'var(--gradient-secondary)'; //*Used a lot
+
+secondH1.closest('h1').style.background = 'var(--gradient-primary)'; // the h1 itself will get styled
+
+// * going sideways: siblings
+// we can only access direct siblings (prev and front)
+console.log(secondH1.previousElementSibling); //? null
+console.log(secondH1.nextElementSibling); //? h4
+
+console.log(secondH1.previousSibling); //*not used alot
+console.log(secondH1.nextSibling); //*not used alot
+
+// returns all siblings including Self
+//  first have to move up , then select all children of that ancestor
+console.log(secondH1.parentElement.children);
+
+// selects all siblings (including self) of secondH1, then scales down every sibling except itself.
+// secondH1.parentElement.children returns an HTMLCollection, but we can spread it to convert it to an array and then loop over using forEach
+[...secondH1.parentElement.children].forEach(function (el) {
+  if (el !== secondH1) {
+    el.style.transform = 'scale(0.5)';
+  }
+});
