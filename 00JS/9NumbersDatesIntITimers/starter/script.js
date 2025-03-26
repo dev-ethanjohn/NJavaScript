@@ -466,3 +466,102 @@ const getDateMessage = day => {
 };
 
 console.log(getDateMessage(days1)); //? More than a week ago
+
+// IMPORTANT (188): Internationalizing Dates (Intl)
+console.log('----Internationalizing Dates (Intl)----');
+
+// Internationalizing Dates (Intl)
+
+// 1. Basic Date Formatting
+const date = new Date('2024-03-26');
+
+// Using Intl.DateTimeFormat for localized date formatting
+console.log('US English Date Format:');
+console.log(new Intl.DateTimeFormat('en-US').format(date));
+// Output: 3/26/2024
+
+console.log('UK English Date Format:');
+console.log(new Intl.DateTimeFormat('en-GB').format(date));
+// Output: 26/03/2024
+
+console.log('Japanese Date Format:');
+console.log(new Intl.DateTimeFormat('ja-JP').format(date));
+// Output: 2024/3/26
+
+// 2. Customizing Date Formatting Options
+console.log('\nCustom Date Formatting:');
+const fullDateOptions = {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+};
+
+console.log('Full Date in French:');
+console.log(new Intl.DateTimeFormat('fr-FR', fullDateOptions).format(date));
+// Output: mardi 26 mars 2024
+
+console.log('Full Date in Arabic:');
+console.log(new Intl.DateTimeFormat('ar-EG', fullDateOptions).format(date));
+// Output: الثلاثاء، 26 مارس، 2024
+
+// 3. Combining Date and Time Formatting
+const dateTimeOptions = {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+  timeZone: 'UTC',
+};
+
+console.log('\nDate and Time in Different Locales:');
+const now2 = new Date();
+
+console.log('German:');
+console.log(new Intl.DateTimeFormat('de-DE', dateTimeOptions).format(now2));
+
+console.log('Chinese:');
+console.log(new Intl.DateTimeFormat('zh-CN', dateTimeOptions).format(now2));
+
+// 4. Relative Time Formatting
+console.log('\nRelative Time Formatting:');
+const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+
+console.log(rtf.format(-1, 'day')); // yesterday
+console.log(rtf.format(1, 'day')); // tomorrow
+console.log(rtf.format(-2, 'week')); // 2 weeks ago
+console.log(rtf.format(3, 'month')); // in 3 months
+
+// 5. Advanced Example: Parsing and Formatting
+function localizeDate(date, locale, options = {}) {
+  const defaultOptions = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+
+  const mergedOptions = { ...defaultOptions, ...options };
+
+  return new Intl.DateTimeFormat(locale, mergedOptions).format(date);
+}
+
+// Usage example
+const specialDate = new Date('2024-12-25');
+console.log('\nLocalizing Christmas:');
+console.log('US English:', localizeDate(specialDate, 'en-US'));
+console.log('Spanish:', localizeDate(specialDate, 'es-ES'));
+console.log('Arabic:', localizeDate(specialDate, 'ar-EG'));
+
+// Bonus: Supporting Multiple Locales
+const supportedLocales = ['en-US', 'fr-FR', 'ja-JP', 'ar-EG', 'zh-CN'];
+supportedLocales.forEach(locale => {
+  console.log(`\nDate in ${locale}:`);
+  console.log(localizeDate(new Date(), locale));
+});
+
+// For Dynamic Locale
+const locale = navigator.language;
+labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(now);
