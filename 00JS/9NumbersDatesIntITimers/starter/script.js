@@ -605,3 +605,25 @@ console.log(
   'Browser:',
   new Intl.NumberFormat(navigator.language, currOptions).format(num2)
 ); //? Browser: €2,378,232,323.23
+
+// IMPORTANT (190): Timers: setTimeout and setInterval
+console.log('---Timers: setTimeout and setInterval----');
+
+const ingredients = ['olives', 'spinach'];
+const pizzaTimer = setTimeout(
+  (ing1, ing2) => {
+    console.log(`Here is your pizza! with ${ing1} and ${ing2}`);
+  },
+  3000,
+  ...ingredients
+);
+console.log('WAITING');
+
+// if tehre is a spinach, do not execute the timeout
+if (ingredients.includes('spinach')) clearTimeout(pizzaTimer);
+
+//*setInterval (on repeat timer)
+// setInterval(() => {
+//   const now = new Date();
+//   console.log(now);
+// }, 1000);
