@@ -149,7 +149,6 @@ nav.addEventListener('mouseover', handleHover.bind(0.5));
 nav.addEventListener('mouseout', handleHover.bind(1));
 
 //NOTE: Sticky Navigation
-
 // *Manual observing the scroll position
 // const initialCoordinates = section1.getBoundingClientRect();
 
@@ -177,7 +176,6 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 
 // const observer = new IntersectionObserver(obsCallback, obsOptions);
 // observer.observe(section1);
-
 const header = document.querySelector('.header');
 const navHeight = nav.getBoundingClientRect().height;
 
@@ -200,3 +198,28 @@ const headerObserver = new IntersectionObserver(stickyNav, {
   rootMargin: `-${navHeight}px`,
 });
 headerObserver.observe(header);
+
+// NOTE: Reveal Sections
+const allSections = document.querySelectorAll('.section');
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+  // unobserve
+  observer.unobserve(entry.target);
+};
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15,
+});
+
+// initially add section--hidden class to remove each section
+allSections.forEach(function (section) {
+  //   ✅ observe(section) tells the Intersection Observer API to track each .section.
+  // ✅ Without it, the observer wouldn't know what to watch.
+  // ✅ The observer triggers revealSection when a section enters the viewport.
+  section.classList.add('section--hidden'); // 👈 First, hide the section
+  sectionObserver.observe(section); // 👈 Then, start observing it
+});
