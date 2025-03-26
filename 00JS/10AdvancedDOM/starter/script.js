@@ -158,3 +158,58 @@ document
     // message.parentElement.removeChild(message) //*old way (DOM traversing)
     message.remove(); //*removes the div
   });
+
+// IMPORTANT (197): Styles, Attributes, and Classes
+console.log('---Styles, Attributes, and Classes----');
+
+// Styles
+// Sets to inline styles in HTML
+message.style.backgroundColor = '#37383d';
+message.style.width = '120%';
+
+console.log(message.style.height); //*cannot read it unless we put it manuall in the DOM w/ JS (returns an empty string)
+console.log(getComputedStyle(message).height); //? 49px *can read styles set via CSS files or not directly inline
+console.log(getComputedStyle(message).color); //? rgb(187, 187, 187)
+console.log(message.style.backgroundColor);
+
+message.style.height =
+  Number.parseFloat(getComputedStyle(message).height) + 40 + 'px';
+console.log(message.style.height); //? 89px *now it is inline
+
+//NOTE change the value of the custom property in CSS
+document.documentElement.style.setProperty('--color-primary', 'orangered');
+
+//* Attributes
+const logo = document.querySelector('.nav__logo');
+console.log(logo.alt); //? Bankist logo
+console.log(logo.className); //? nav__logo
+
+logo.alt = 'Beautiful minimalist logo';
+
+// NOn-standard
+console.log(logo.designer); // undefined
+console.log(logo.getAttribute('designer')); //? Jonas
+
+logo.setAttribute('company', 'Bankist'); //*sets a new attribute in the HTML file
+
+console.log(logo.src); //? http://127.0.0.1:5500/00JS/10AdvancedDOM/starter/img/logo.png  *absolute
+console.log(logo.getAttribute('src')); //? img/logo.png *relative
+
+const twitterLink = document.querySelector('.twitter-link');
+console.log(twitterLink.href); //? https://twitter.com/jonasschmedtman
+console.log(twitterLink.getAttribute('href')); //? https://twitter.com/jonasschmedtman
+
+const link = document.querySelector('.nav__link--btn');
+console.log(link.href); //? http://127.0.0.1:5500/00JS/10AdvancedDOM/starter/index.html#
+console.log(link.getAttribute('href')); //? #
+
+// NOTE: Date attribute
+// Uused quite a lot esp when we use data and store data in the UI
+console.log(logo.dataset.versionNumber); //? 3.0
+
+// NOTE: Classes
+logo.classList.add('c', 'j');
+logo.classList.remove('c');
+logo.classList.toggle('c');
+logo.classList.contains('c'); //NOT INCLUDES
+// logo.className ='jonas' *NOTE: Dont use this
