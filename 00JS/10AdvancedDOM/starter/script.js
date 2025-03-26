@@ -247,3 +247,37 @@ logo.classList.remove('c');
 logo.classList.toggle('c');
 logo.classList.contains('c'); //NOT INCLUDES
 // logo.className ='jonas' *NOTE: Dont use this
+
+// IMPORTANT (199): Types of Events and Events handlers
+// NOTE: developer.mozilla.org/en-US/docs/Web/API/Element#events
+https: console.log('----Types of Events and Events handlers------');
+
+const h1 = document.querySelector('h1');
+
+// mouseenter is like hover effect
+const alerth1 = function () {
+  alert('Trigger mouse1');
+
+  //* listen the event once (inside the function when executed)
+  // h1.removeEventListener('mouseenter', alerth1);
+};
+
+// NOTE: 1ST WAY TO ADD EVENT   //*RECOMMENDED
+// ✔ This passes the function reference so that it executes only when the event happens.
+h1.addEventListener('mouseenter', alerth1);
+
+// NOTE: 2ND WAY TO ADD EVENT //*NOT RECOMMENDED
+// h1.onmouseenter = function () {
+//   alert('Trigger mouse2');
+// };
+
+// 👉 Use addEventListener for better flexibility, especially if you may need multiple listeners or want to remove an event later.
+// 👉 Use onmouseenter only if you need just one simple event handler and won't add more later.
+
+// * removes the event affer 3 sec. can listen multiple times as long as is not more than 3 sec.
+setTimeout(() => {
+  h1.removeEventListener('mouseenter', alerth1);
+}, 3000);
+
+// NOTE: 3RD WAY TO ADD EVENT //*DO NOT DO THIS EVER
+// Add the attribute on the HTML ex: `onclick="alert('Alert')"
