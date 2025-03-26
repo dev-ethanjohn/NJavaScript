@@ -562,6 +562,46 @@ supportedLocales.forEach(locale => {
   console.log(localizeDate(new Date(), locale));
 });
 
-// For Dynamic Locale
+// For Dynamic Locale *based on browser
+const options = {
+  hour: 'numeric',
+  minute: 'numeric',
+  day: 'numeric',
+  month: 'numeric',
+  year: 'numeric',
+};
 const locale = navigator.language;
 labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(now);
+
+// IMPORTANT (189): Internationalizing numbers (Intl)
+console.log('---Internationalizing numbers (Intl)----');
+
+const options2 = {
+  style: 'unit',
+  unit: 'mile-per-hour',
+};
+
+const currOptions = {
+  style: 'currency',
+  currency: 'EUR',
+  // useGrouping: false,
+};
+
+const num2 = 2378232323.23;
+console.log('US:', new Intl.NumberFormat('en-US', options2).format(num2)); //? US: 2,378,232,323.23 mph
+console.log('Germany:', new Intl.NumberFormat('de-DE', options2).format(num2)); //? Germany: 2.378.232.323,23 mi/h
+console.log('Syria:', new Intl.NumberFormat('ar-SY', options2).format(num2)); //? Syria: ٢٬٣٧٨٬٢٣٢٬٣٢٣٫٢٣ ميل/س
+console.log(
+  'Browser:',
+  new Intl.NumberFormat(navigator.language, options2).format(num2)
+); //? Browser: 2,378,232,323.23 mph
+
+console.log('US:', new Intl.NumberFormat('en-US', currOptions).format(num2)); //? US: €2,378,232,323.23
+console.log(
+  'Germany:',
+  new Intl.NumberFormat('de-DE', currOptions).format(num2)
+); //? Germany: 2.378.232.323,23 €
+console.log(
+  'Browser:',
+  new Intl.NumberFormat(navigator.language, currOptions).format(num2)
+); //? Browser: €2,378,232,323.23
