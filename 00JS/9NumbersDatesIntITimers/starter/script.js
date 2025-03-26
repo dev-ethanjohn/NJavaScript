@@ -439,3 +439,30 @@ console.log(new Date(2142228180000)); //? Thu Nov 19 2037 15:23:00 GMT+0800 (Phi
 console.log(Date.now()); //? 1742907499829
 future.setFullYear(2040);
 console.log(future); //? Mon Nov 19 2040 15:23:00 GMT+0800 (Philippine Standard Time)
+
+// IMPORTANT (187): Operations with Dates
+console.log('---Operations with Dates');
+
+const future2 = new Date(2037, 10, 19, 15, 23, 5);
+console.log(+future); //? 2236922580000 *in milliseconds
+
+const calcDaysPassed = (date1, date2) => {
+  return Math.round(Math.abs((date2 - date1) / (1000 * 60 * 60 * 24)));
+};
+
+const days1 = calcDaysPassed(new Date(2037, 10, 19), new Date(2037, 10, 29));
+console.log(days1); //? 10 *in days
+
+const getDateMessage = day => {
+  if (day === 0) {
+    return 'Today';
+  } else if (day === 1) {
+    return 'Yesterday';
+  } else if (day <= 7) {
+    return `${day} days ago`;
+  } else {
+    return 'More than a week ago';
+  }
+};
+
+console.log(getDateMessage(days1)); //? More than a week ago
