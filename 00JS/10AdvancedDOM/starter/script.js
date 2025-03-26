@@ -32,7 +32,7 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-//* IMPLEMENT SMOOTH SCROLLING
+//NOTE* IMPLEMENT SMOOTH SCROLLING
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 
@@ -66,7 +66,15 @@ btnScrollTo.addEventListener('click', function (e) {
   // 👉 Use window.scrollTo() if you need custom offsets (e.g., accounting for a sticky navbar).
 });
 
-////////////////////////
+// NOTE: PAGE NAVIGATION
+document.querySelectorAll('.nav__link').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    console.log('Link');
+  });
+});
+
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
 // LESSON
 // IMPORTANT: (195): How the DOM Really Works
 console.log('----How the DOM Really Works----');
@@ -407,3 +415,6 @@ document.querySelector('.nav').addEventListener(
 
 // e.target → The element that was actually clicked (origin of the event) Usually the same.
 // e.currentTarget → The element that the event handler is attached to (the current element handling the event).
+
+// IMPORTANT (202): Event delegation
+console.log('----Event delegation----');
