@@ -114,3 +114,47 @@ console.log('----How the DOM Really Works----');
    - Inheritance makes it possible to use common methods on various elements.
 
 */
+
+// IMPORTANT (196): Selecting, Creating, and Deleting Elements
+console.log('----Selecting, Creating, and Deleting Elements---');
+
+// Selecting elements
+console.log(document.documentElement);
+console.log(document.head);
+console.log(document.body);
+
+const header = document.querySelector('.header');
+const allSections = document.querySelectorAll('.section');
+console.log(allSections); //*returns a nodelist
+
+document.getElementById('section--1');
+const allButtons = document.getElementsByTagName('button');
+console.log(allButtons); //*returns an HTMLCollection
+
+console.log(document.getElementsByClassName('btn')); //*returns an HTMLCollection
+
+// Creating and inserting elements
+// insertAdjacentHTML
+
+// Programmatic approach
+const message = document.createElement('div'); //*creates a DOM element
+message.classList.add('cookie-message');
+// message.textContext =
+//   'We use cookies for improved functionality and analytics.';
+message.innerHTML =
+  'We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
+//header.prepend(message); //* add as a first child of the element
+header.append(message); //* add as the last chidl of the element (any live element in the DOM will only appear as a single element. It can't exist twice at the same time unless we clone it)
+
+// header.append(message.cloneNode(true)); *clone
+
+// header.before(message);  //*before the header as sibling not a child
+// header.after(message);
+
+// Delete elements
+document
+  .querySelector('.btn--close-cookie')
+  .addEventListener('click', function () {
+    // message.parentElement.removeChild(message) //*old way (DOM traversing)
+    message.remove(); //*removes the div
+  });
