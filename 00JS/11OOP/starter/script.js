@@ -447,17 +447,17 @@ console.log(Object.getPrototypeOf(numbers)); // Shows Array.prototype
 // - A constructor function is a function used to create objects.
 // - Methods are added to the prototype of the constructor function, making them shared across all instances.
 
-function Animal(name) {
+function Animal2(name) {
   this.name = name; // Instance property
 }
 
 // Add methods to the prototype
-Animal.prototype.speak = function () {
+Animal2.prototype.speak = function () {
   return `${this.name} makes a noise.`;
 };
 
-const dog = new Animal('Buddy');
-console.log(dog.speak()); // Output: "Buddy makes a noise."
+const dog2 = new Animal2('Buddy');
+console.log(dog2.speak()); // Output: "Buddy makes a noise."
 
 // ⚠️ Key Takeaway:
 // - Constructor functions are the traditional way to implement prototypal inheritance in JavaScript
@@ -478,8 +478,8 @@ class AnimalClass {
   }
 }
 
-const cat = new AnimalClass('Whiskers');
-console.log(cat.speak()); // Output: "Whiskers makes a noise."
+const cat2 = new AnimalClass('Whiskers');
+console.log(cat2.speak()); // Output: "Whiskers makes a noise."
 
 // *⚠️ Key Takeaway:
 // - ES6 classes are syntactic sugar over constructor functions.
