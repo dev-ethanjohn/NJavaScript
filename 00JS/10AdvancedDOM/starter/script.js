@@ -489,3 +489,29 @@ window.addEventListener('load', e => {
 //   console.log(e);
 //   // e.returnValue = '';
 // });
+
+// IMPORTANT: (214) Efficient Script Loading: defer and async
+console.log('---- Efficient Script Loading: defer and async-----');
+
+//* 🙂 REGULAR SCRIPT (Placed at the end of <body>)
+// --------------------------------------------
+// - The script is fetched and executed only after the entire HTML is parsed.
+// - Ensures the DOM is fully loaded before executing.
+// - Best for scripts that manipulate the DOM or depend on page elements.
+// - Slower page load because the browser must wait until the script is fetched and executed after parsing.
+
+//* 😃 ASYNC SCRIPT (Placed in <head> with async attribute)
+// ----------------------------------------------------
+// - The script is fetched asynchronously while HTML is being parsed.
+// - Once fetched, execution happens immediately, pausing HTML parsing.
+// - DOMContentLoaded does NOT wait for async scripts to finish.
+// - Useful for third-party scripts that do not rely on the DOM (e.g., Google Analytics).
+// - Order of execution is NOT guaranteed if multiple async scripts exist.
+
+//* 😁 DEFER SCRIPT (Placed in <head> with defer attribute)
+// ---------------------------------------------------
+// - The script is fetched asynchronously while HTML is being parsed.
+// - Execution happens only AFTER HTML parsing is complete.
+// - DOMContentLoaded fires AFTER defer scripts have executed.
+// - Scripts execute in order, making it ideal for scripts that rely on each other.
+// - Best choice for loading your own scripts efficiently without blocking HTML parsing.
