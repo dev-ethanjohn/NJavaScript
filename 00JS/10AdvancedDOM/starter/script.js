@@ -465,3 +465,27 @@ console.log(secondH1.parentElement.children);
 //     el.style.transform = 'scale(0.5)';
 //   }
 // });
+
+// IMPORTANT (213): Lifecycle DOM Events
+console.log('---Lifecycle DOM Events---');
+
+//* fired as soon asthe HTML is parsed
+// means -> HTML is downloaded and converted to the DOM tree
+// All script must be downloaded and executed before the DOMContentLoaded events happens
+document.addEventListener('DOMContentLoaded', e => {
+  // do wait for other images or external scripts to load
+  console.log('HTML prased and DOM tree built!');
+});
+
+// *fired as soon as all HTML, CSS, files are parsed
+window.addEventListener('load', e => {
+  console.log('Page fully loaded', e);
+});
+
+// *This is good in cases where users wanted to leave while filling out a form, or writing a post (where data could be lost if you leave unintended)
+// is created immediately before a user leaves a page
+// window.addEventListener('beforeunload', e => {
+//   e.preventDefault();
+//   console.log(e);
+//   // e.returnValue = '';
+// });
