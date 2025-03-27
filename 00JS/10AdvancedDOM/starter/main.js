@@ -202,13 +202,17 @@ headerObserver.observe(header);
 // NOTE: Reveal Sections
 const allSections = document.querySelectorAll('.section');
 const revealSection = function (entries, observer) {
-  const [entry] = entries;
-  console.log(entry);
+  // console.log(entries);
+  // const [entry] = entries;
+  entries.forEach(entry => {
+    // console.log(entry);
 
-  if (!entry.isIntersecting) return;
-  entry.target.classList.remove('section--hidden');
-  // unobserve
-  observer.unobserve(entry.target);
+    if (!entry.isIntersecting) return;
+
+    entry.target.classList.remove('section--hidden');
+    // unobserve as it there's no point of observing after it appears.
+    observer.unobserve(entry.target);
+  });
 };
 const sectionObserver = new IntersectionObserver(revealSection, {
   root: null,
@@ -223,3 +227,38 @@ allSections.forEach(function (section) {
   section.classList.add('section--hidden'); // 👈 First, hide the section
   sectionObserver.observe(section); // 👈 Then, start observing it
 });
+
+//NOTE: LAZY LOADING IMAGES
+// https://www.youtube.com/watch?v=T8EYosX4NOo
+// https://www.youtube.com/watch?v=2IbRtjez6ag
+// selects the element that has the property/attribute data-src
+const imgTargets = document.querySelectorAll('img[data-src]');
+// console.log(imgTargets);
+
+const loadImg = function (entries, observer) {
+  // const [entry] = entries;
+  // console.log(entry);
+
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+
+    // Replace src with data-src
+    entry.target.src = entry.target.dataset.src;
+
+    entry.target.addEventListener('load', function () {
+      // only remove the filter class when the image has finished loaded
+      entry.target.classList.remove('lazy-img');
+    });
+
+    observer.unobserve(entry.target);
+  });
+};
+
+const imgObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+  // load early
+  rootMargin: '50px',
+});
+
+imgTargets.forEach(img => imgObserver.observe(img));
