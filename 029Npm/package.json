@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "scripts": {
+    "list": "ls",
+    "hello": "echo 'hello there!'"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21"
+  }
+}
