@@ -13,3 +13,19 @@
 
     5. Print out the results from steps 3 and 4
 */
+const quote = "What is this? A center for ants?";
+
+const pattern = /ant/;
+
+const test = pattern.test(quote);
+console.log(test); //? true
+
+const match = quote.match(pattern);
+console.log(match);
+
+// [
+//   'ant',
+//   index: 27,
+//   input: 'What is this? A center for ants?',
+//   groups: undefined
+// ]
