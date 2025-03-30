@@ -522,3 +522,36 @@ console.log(bird.speak()); // Output: "Polly makes a noise."
 
 // 🌟 Final Thoughts:
 // Prototypal inheritance in JavaScript is powerful and flexible. Choose the approach that best fits your project's requirements!
+
+// IMPORTANT 219: Constructor Functions and the new Operator
+console.log('------Constructor Functions and the new Operator-------');
+
+// We can use constructor functions to programmatically create objects
+// only function declaration and function expression (arrow function doesnt have `this`)
+const Person = function (firstName, birthYear) {
+  //  Instance properties
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+
+  //! Never create a method inside a constructor function
+  // *This will affect performance as each instance can now carry the the method even though the might/wouldnt need it.
+  // this.calcAge = function() {
+  //   console.log(2037 - this.birthYear);
+  // }
+};
+
+// OBJECT CREATION
+// 1. New {} is created
+// 2. function is called, this = {}
+// 3. {} linked to prototype
+// 4. function automaticaly return {}
+const jonas = new Person('Jonas', 1991);
+console.log(jonas); //? Person {firstName: 'Jonas', birthYear: 1991}
+
+const matilda = new Person('Matilda', 2017);
+const ethan = new Person('Ethan', 2000);
+console.log(matilda, ethan);
+
+const jay = 'Jay';
+
+console.log(jonas instanceof Person); //? true
