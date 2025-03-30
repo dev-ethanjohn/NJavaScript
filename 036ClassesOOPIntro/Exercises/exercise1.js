@@ -22,3 +22,27 @@
     6. Use the "gpa" method on "eva" to print out their average
        grade (Should be 84.33)
 */
+
+class Student {
+  constructor(name, major, grades) {
+    this.name = name;
+    this.major = major;
+    this.grades = grades;
+  }
+
+  addGrade(grade) {
+    this.grades.push(grade);
+  }
+
+  gpa() {
+    const total = this.grades.reduce((total, grade) => total + grade, 0);
+    return (total / this.grades.length).toFixed(2);
+  }
+}
+
+const eva = new Student("Eva", "Arts", [95, 75, 83]);
+console.log(eva); //? Student { name: 'Eva', major: 'Arts', grades: [ 95, 75, 83 ] }
+console.log(eva.gpa()); //? 84.33
+
+eva.addGrade(90);
+console.log(eva.gpa()); //? 85.75
