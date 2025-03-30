@@ -1,5 +1,5 @@
 Object.prototype.greet = function () {
-  //! Do not add something on the prototypes (1) iT COULD override existing functionalities (2) It will be accessible to all objects thus causing potnetial errors
+  //! Do not add something on the Object prototypes (global object prototype) (1) iT COULD override existing functionalities (2) It will be accessible to all objects thus causing potnetial errors
   console.log(this); // *the oBject itself
   console.log(`${this.name} says hello there!`);
 };

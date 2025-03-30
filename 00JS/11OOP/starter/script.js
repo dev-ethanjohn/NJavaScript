@@ -555,3 +555,106 @@ console.log(matilda, ethan);
 const jay = 'Jay';
 
 console.log(jonas instanceof Person); //? true
+
+// IMPORTANT 220: Prototypes
+console.log('----Prototypes-----');
+
+//* Method added to the prototype
+// Each function in JS has a property of `prototype`; including constructor functions
+console.log(Person.prototype);
+Person.prototype.calcAge = function () {
+  console.log(2037 - this.birthYear);
+};
+
+jonas.calcAge(); //? 46
+console.log(Object.getOwnPropertyNames(jonas.__proto__)); //? ['constructor', 'calcAge']
+console.log(Object.getOwnPropertyNames(jonas.__proto__.__proto__));
+
+matilda.calcAge(); //? 20
+ethan.calcAge(); //? 37
+
+console.log(jonas.__proto__);
+//* The Person.prototye is not the prototype of Person. But it is gonna used as the prototype of the objects created w/ Person constructor function
+console.log(jonas.__proto__ === Person.prototype); //? true
+console.log(Person.prototype.isPrototypeOf(jonas)); //? true
+console.log(Person.prototype.isPrototypeOf(matilda)); //? true
+console.log(Person.prototype.isPrototypeOf(ethan)); //? true
+
+console.log(Person.prototype); //? {calcAge: ƒ}
+console.log(Person.prototype.constructor.name); //? Person
+
+//* Property added to the prototype
+Person.prototype.species = 'Home sapiens';
+console.log(ethan); //? Person { firstName: 'Ethan', birthYear: 2000 }
+console.log(jonas.__proto__); //? {species: 'Home sapiens', calcAge: ƒ}
+
+//NOTE: Own Properties vs. Prototype Properties:
+
+//* Own Properties: These are properties that are directly attached to the object itself. In the case of ethan, firstName and birthYear are its own properties.
+//* Prototype Properties: These are properties that are not directly on the object but are inherited from its prototype. In this case, calcAge and species are on the prototype (Person.prototype).
+
+//NOTE: The Prototype Chain:
+
+//*(1) When you try to access a property on an object, JavaScript first looks for that property directly on the object itself (its own properties).
+//*(2) If the property is not found, JavaScript then looks in the object's prototype (the object that __proto__ points to).
+//*(3) If the property is still not found, JavaScript continues up the prototype chain (the prototype's prototype, and so on) until it either finds the property or reaches the end of the chain (which is null).
+
+// ===================================================
+// Demonstrating Access to All Four Properties
+// ===================================================
+
+console.log('--- Accessing firstName (Own Property) ---');
+console.log(jonas.firstName); // Output: Jonas
+console.log(matilda.firstName); // Output: Matilda
+console.log(ethan.firstName); // Output: Ethan
+
+console.log('\n--- Accessing birthYear (Own Property) ---');
+console.log(jonas.birthYear); // Output: 1991
+console.log(matilda.birthYear); // Output: 2017
+console.log(ethan.birthYear); // Output: 2000
+
+console.log('\n--- Accessing calcAge (Prototype Method) ---');
+jonas.calcAge(); // Output: 46
+matilda.calcAge(); // Output: 20
+ethan.calcAge(); // Output: 37
+
+console.log('\n--- Accessing species (Prototype Property) ---');
+console.log(jonas.species); // Output: Homo Sapiens
+console.log(matilda.species); // Output: Homo Sapiens
+console.log(ethan.species); // Output: Homo Sapiens
+
+console.log('\n--- Demonstrating the Prototype Chain ---');
+console.log(jonas.hasOwnProperty('firstName')); // Output: true (it's an own property)
+console.log(jonas.hasOwnProperty('calcAge')); // Output: false (it's on the prototype)
+console.log(jonas.hasOwnProperty('species')); // Output: false (it's on the prototype)
+console.log(Person.prototype.hasOwnProperty('species')); // Output: true (it's on the prototype)
+console.log(Person.prototype.hasOwnProperty('calcAge')); // Output: true (it's on the prototype)
+
+console.log('\n--- Demonstrating that calcAge is a function ---');
+console.log(typeof jonas.calcAge); // Output: function
+
+console.log('\n--- Demonstrating that species is a string ---');
+console.log(typeof jonas.species); // Output: string
+
+console.log('\n--- Demonstrating that firstName is a string ---');
+console.log(typeof jonas.firstName); // Output: string
+
+console.log('\n--- Demonstrating that birthYear is a number ---');
+console.log(typeof jonas.birthYear); // Output: number
+
+console.log('\n--- Demonstrating that all of them are accessible ---');
+console.log(
+  `${jonas.firstName} is a ${jonas.species} and is ${
+    2037 - jonas.birthYear
+  } years old`
+); // Output: Jonas is a Homo Sapiens and is 46 years old
+console.log(
+  `${matilda.firstName} is a ${matilda.species} and is ${
+    2037 - matilda.birthYear
+  } years old`
+); // Output: Matilda is a Homo Sapiens and is 20 years old
+console.log(
+  `${ethan.firstName} is a ${ethan.species} and is ${
+    2037 - ethan.birthYear
+  } years old`
+); // Output: Ethan is a Homo Sapiens and is 37 years old
