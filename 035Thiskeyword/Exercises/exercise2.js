@@ -23,3 +23,38 @@
 
     HINT* What methods can we use on Functions to manipulate "this"?
 */
+
+const book = {
+  name: "Harry Potter",
+  author: "J.K. Rowling",
+  characters: {
+    mainChars: ["Harry", "Ron", "Hermione"],
+    list: function () {
+      for (const char of this.mainChars) {
+        console.log(char);
+      }
+    },
+  },
+};
+
+// Create a new object with the permanent mainChars
+const newContext = { mainChars: ["Draco", "Severus", "Voldemort"] };
+
+// Store the bound function in a variable
+const listWithNewContext = book.characters.list.bind(newContext);
+
+// Calling the new function
+listWithNewContext();
+/*
+Draco
+Severus
+Voldemort
+*/
+
+// Calling the original book.characters.list() still uses the original mainChars
+book.characters.list();
+/*
+Harry
+Ron
+Hermione
+*/
