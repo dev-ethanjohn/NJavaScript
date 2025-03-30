@@ -17,3 +17,71 @@
     * This is purposefully challenging and will require lots of
       Googling to see how to parse the image and save it using Node.
 */
+
+import fs from "fs/promises";
+
+const downloadImage = async (url, filepath) => {
+  try {
+    // Fetch the image
+    const response = await fetch(url);
+
+    // Check if the request was successful
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch image: ${response.status} ${response.statusText}`
+      );
+    }
+
+    // Convert response into a buffer
+    const buffer = await response.arrayBuffer();
+
+    // Write the file to the filesystem
+    await fs.writeFile(filepath, Buffer.from(buffer));
+    console.log(`Image saved to ${filepath}`);
+  } catch (error) {
+    console.error("Error downloading image:", error);
+  }
+};
+
+const imageUrl = "https://w.wallhaven.cc/full/7p/wallhaven-7p39gy.png";
+const savePath = "wallpaper.png";
+
+downloadImage(imageUrl, savePath);
+
+// For Node.js → ArrayBuffer is better.
+
+// If you're saving an image in Node.js, ArrayBuffer (buffer) is the best choice since Blob isn't natively supported in Node. But if you're working in the browser, Blob is more convenient because it integrates well with <img>, downloads, and file uploads.
+
+// 💡 Final Verdict:
+// ✔ If you're fetching an image in the browser → Use Blob
+// ✔ If you're handling binary data in Node.js → Use ArrayBuffer
+
+//* USING BLOB
+//// Function to download and save an image
+// const downloadImage = async (url, outputPath) => {
+//   try {
+//     console.log("Fetching image...");
+//     const response = await fetch(url);
+//     if (!response.ok)
+//       throw new Error(`Failed to fetch: ${response.statusText}`);
+
+//     // Convert response to Blob
+//     const blob = await response.blob();
+
+//     // Read the Blob as a Buffer
+//     const arrayBuffer = await blob.arrayBuffer();
+//     const buffer = Buffer.from(arrayBuffer);
+
+//     // Write to file
+//     await fs.writeFile(outputPath, buffer);
+//     console.log("Image downloaded successfully!");
+//   } catch (error) {
+//     console.error("Error:", error);
+//   }
+// };
+
+// // Define the image URL and output path
+// const imageUrl = "https://w.wallhaven.cc/full/7p/wallhaven-7p39gy.png";
+// const outputFilePath = "wallpaper.png";
+
+// downloadImage(imageUrl, outputFilePath);

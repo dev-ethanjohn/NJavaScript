@@ -100,3 +100,26 @@ const document = {
     },
   ],
 };
+
+const constructDOM = (node) => {
+  if (!node || !node.nodeName) return "";
+
+  // If the node has innerText, it's a leaf node (no further children)
+  if (node.innerText) {
+    return `<${node.nodeName}>${node.innerText}</${node.nodeName}>`;
+  }
+
+  // If the node has childNodes, process them recursively
+  const childrenHTML = node.childNodes
+    ? node.childNodes.map(constructDOM).join("")
+    : "";
+
+  return `<${node.nodeName}>${childrenHTML}</${node.nodeName}>`;
+};
+
+const renderDOM = (document) => {
+  return document.childNodes.map(constructDOM).join("");
+};
+
+// Test case
+console.log(renderDOM(document));

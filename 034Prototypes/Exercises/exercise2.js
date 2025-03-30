@@ -10,4 +10,22 @@
 
     4. What is happening here and why does this work?
 */
-e;
+const fakeArray = {
+  0: "Zero",
+  1: "One",
+  2: "Two",
+  length: 3,
+};
+
+console.log(Object.getOwnPropertyNames(fakeArray)); //? [ '0', '1', '2', 'length' ]
+
+// IMPORTANT: Make fakeArray inherit all array methods
+Object.setPrototypeOf(fakeArray, Array.prototype);
+
+// * call() isnt required if we set the Prototype
+console.log(fakeArray.map((item) => item)); //? ["Zero", "One", "Two"]
+
+//  *With .call() (Prototype Not Set)
+// NOTE: UNCOMMENT to check result
+// const result = Array.prototype.map.call(fakeArray, (item) => item);
+// console.log(result); // ["Zero", "One", "Two"]

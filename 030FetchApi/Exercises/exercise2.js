@@ -12,4 +12,14 @@
     
     HINT: Be careful with the naming of the keys here when trying
           to access the parsed JSON
+
+
 */
+
+const getPokemon = async () => {
+  const result = await fetch("https://pokeapi.co/api/v2/pokemon/pikachu");
+  const artworkData = await result.json();
+  console.log(artworkData.sprites.other["official-artwork"].front_default);
+};
+
+getPokemon();

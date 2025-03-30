@@ -22,3 +22,55 @@
 
     9. What is happening and Why?
 */
+
+const store = {
+  name: null,
+  stock: [
+    { name: "candy", quantity: 100 },
+    { name: "fruit", quantity: 7 },
+    { name: "toys", quantity: 23 },
+  ],
+};
+
+const myStore = {};
+myStore.name = "My Wonderful Store";
+console.log(myStore); //? { name: 'My Wonderful Store' }
+Object.setPrototypeOf(myStore, store);
+
+const yourStore = {};
+yourStore.name = "Not My Wonderful Store";
+console.log(yourStore); //? { name: 'Not My Wonderful Store' }
+Object.setPrototypeOf(yourStore, store);
+
+myStore.stock[1].quantity = 300;
+
+// Step 7: Log "myStore" details
+console.log(myStore.name); // "My Wonderful Store"
+console.log(myStore.stock);
+/*
+[
+  { name: 'candy', quantity: 100 },
+  { name: 'fruit', quantity: 300 },  // Modified!
+  { name: 'toys', quantity: 23 }
+]
+*/
+
+// Step 8: Log "yourStore" details
+console.log(yourStore.name); // "Not My Wonderful Store"
+console.log(yourStore.stock);
+/*
+[
+  { name: 'candy', quantity: 100 },
+  { name: 'fruit', quantity: 300 },  // Also changed!
+  { name: 'toys', quantity: 23 }
+]
+*/
+
+// NOTE:
+// What Happens When Object.setPrototypeOf(myStore, store);?
+// This means myStore’s prototype is now the store object itself.
+//* So, whenever you try to access a property in myStore, if it doesn’t exist in myStore, JavaScript looks for it in store (via the prototype chain).
+
+console.log(Object.getOwnPropertyNames(store.__proto__));
+console.log(Object.getOwnPropertyNames(myStore.__proto__));
+console.log(Object.getOwnPropertyNames(yourStore.__proto__));

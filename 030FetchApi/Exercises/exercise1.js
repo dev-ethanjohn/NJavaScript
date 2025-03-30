@@ -9,3 +9,10 @@
     BONUS: How does this differ from text content and what might
            fetch be doing with the JSON response for us?
 */
+const getJSONData = async () => {
+  const result = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+  const jsonData = await result.json();
+  console.log(jsonData);
+};
+
+getJSONData();

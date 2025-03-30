@@ -18,3 +18,28 @@
     6. How would you use "createDatabase" to add values to
        then clear out the "database" (storage array inside)?
 */
+
+const createDatabase = () => {
+  const storage = ["Apple", "Banana", "Carrot"];
+
+  const addToDB = (item) => {
+    storage.push(item);
+    console.log(storage);
+  };
+
+  const clearDB = () => {
+    storage.length = 0; // Clears all elements
+    console.log("Database cleared:", storage);
+  };
+
+  return [addToDB, clearDB];
+};
+
+// Using the database functions
+const [addToDB, clearDB] = createDatabase();
+
+addToDB("Orange"); // ["Apple", "Banana", "Carrot", "Orange"]
+addToDB("Grapes"); // ["Apple", "Banana", "Carrot", "Orange", "Grapes"]
+
+clearDB(); // "Database cleared: []"
+addToDB("Mango"); // ["Mango"]

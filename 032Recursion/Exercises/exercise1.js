@@ -18,3 +18,18 @@
 
     HINT: What are the base-cases? (I thought of 4)
 */
+
+const palindrome = (str) => {
+  // base
+  if (str[0] !== str[str.length - 1]) return false;
+
+  if (str.length === 0) return true;
+  if (str.length === 1) return true;
+  if (str.length === 2) return str[0] === str[1];
+
+  //   recursive
+  return palindrome(str.substring(1, str.length - 1));
+};
+
+const result = palindrome("racecar");
+console.log(result);
