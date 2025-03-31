@@ -22,3 +22,25 @@
        console.log( spaceship.getMaxSpeed() ); // 1000
        console.log( spaceship.numRocketEngines ); // 2
 */
+
+class Vehicle {
+  constructor(name, maxSpeed) {
+    this.name = name;
+    this.maxSpeed = maxSpeed;
+  }
+
+  getMaxSpeed() {
+    return this.maxSpeed;
+  }
+}
+
+class Spaceship extends Vehicle {
+  constructor(name, maxSpeed, numRockEngines) {
+    super(name, maxSpeed);
+    this.numRockEngines = numRockEngines;
+  }
+}
+
+const spaceship = new Spaceship("Enterprise", 1000, 2);
+console.log(spaceship.getMaxSpeed()); //? 1000
+console.log(spaceship.numRockEngines); //? 2

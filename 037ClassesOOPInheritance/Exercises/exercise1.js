@@ -46,4 +46,68 @@
        // A blue square
        // A red rectangle
 */
-s;
+
+//  1. Create a class called "Shape" whose constructor
+//     takes one parameter:
+//     - colour
+//     Assign "colour" to the instance of Shape with a
+//     default value of "Transparent"
+//     Add a "type" property to "this" with a default
+//     value of "Shape"
+
+// The constructor is simply a function that initializes an instance of the class,
+
+class Shape {
+  // less flexible; unless is meant to be constant for all instances
+  //   type = "Shape"; //*class field
+  constructor(colour = "Transparent") {
+    this.colour = colour;
+    this.type = "Shape"; //* if subclasses need to modify type
+  }
+
+  describe() {
+    console.log(`A ${this.colour} ${this.type}`);
+  }
+}
+
+//NOTE: Why colour is in the parameter but type is in the constructor body?
+//* colour is in the parameter → Because each instance is expected to have a different colour, and it makes sense for the user to define it when creating an instance.
+//* type is in the constructor body → Because subclasses will override it, and we don’t want users to pass it manually every time.
+
+class Square extends Shape {
+  constructor(colour, sideLength) {
+    super(colour);
+    this.sideLength = sideLength;
+    this.type = "Square"; //*reassigned
+  }
+
+  area() {
+    return this.sideLength * this.sideLength;
+  }
+}
+
+class Rectangle extends Shape {
+  constructor(colour, width, height) {
+    super(colour);
+    this.width = width;
+    this.height = height;
+    this.type = "Rectangle";
+  }
+  area() {
+    return this.width * this.height;
+  }
+}
+
+const square = new Square("blue", 5);
+const rectangle = new Rectangle("red", 5, 6);
+console.log(square.area()); //? 25
+console.log(rectangle.area()); //? 30
+
+for (const shape of [square, rectangle]) shape.describe();
+// A blue Square
+// A red Rectangle
+
+const shapes = [square, rectangle];
+shapes.forEach((shape) => shape.describe());
+// A blue Square
+// A red Rectangle
