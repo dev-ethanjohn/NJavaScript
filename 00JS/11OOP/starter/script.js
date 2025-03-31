@@ -794,3 +794,31 @@ Person.hey(); //? Hey there! 😊
 // ethanOb.hey(); //! This won't work cause instance doesnt have this hey() method on its prototype; this is only available as a property on the Person class itself
 
 PersonCl.hey(); //? Hey there static!
+
+// IMPORTANT: 227: Object.create
+console.log('-------Object.create-------');
+
+// NOTE; this is straightforwward but less used in production
+const PersonProto = {
+  calcAge() {
+    //* this method is now the prototype of the instance
+    console.log(2037 - this.birthYear);
+  },
+
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+const steven = Object.create(PersonProto);
+console.log(steven);
+steven.name = 'Steven';
+steven.birthYear = 2002;
+steven.calcAge(); //? 35
+
+console.log(steven.__proto__ === PersonProto); //? true
+
+const sarah = Object.create(PersonProto);
+sarah.init('Sarah', 1979);
+sarah.calcAge(); //? 58
