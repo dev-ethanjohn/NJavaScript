@@ -658,3 +658,28 @@ console.log(
     2037 - ethan.birthYear
   } years old`
 ); // Output: Ethan is a Homo Sapiens and is 37 years old
+
+// IMPORTANT: 221: Prototpal Inheritance and the Prototype Chain
+console.log('-----Prototpal Inheritance and the Prototype Chain-------');
+
+// IMPORTANT: 221: Prototpal Inheritance on BuiltIn object
+console.log('-----Prototpal Inheritance on BuiltIn object-------');
+console.log(jonas.__proto__);
+console.log(jonas.__proto__.__proto__);
+console.log(jonas.__proto__.__proto__.__proto__); //? null
+
+console.dir(Person.prototype.constructor); //? Person(firstName, birthYear)
+
+const arr = [1, 2, 3, 2, 3, 4, 5, 8];
+console.log(arr.__proto__);
+console.log(arr.__proto__ === Array.prototype); //? true
+console.log(arr.__proto__.__proto__);
+
+// ! NOt recommended to add a method on any built in Objects like Array/ especiall Global Object
+Array.prototype.unique = function () {
+  return [...new Set(this)];
+};
+
+console.log(arr.unique()); //? [1, 2, 3, 4, 5, 8]
+
+const h1 = document.querySelector('h1');
