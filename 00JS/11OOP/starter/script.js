@@ -692,8 +692,8 @@ const PersonClEx = class {};
 
 // class declaration
 class PersonCl {
-  constructor(firstName, birthYear) {
-    this.firstName = firstName;
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
     this.birthYear = birthYear;
   }
 
@@ -701,25 +701,77 @@ class PersonCl {
   calcAge() {
     console.log(2037 - this.birthYear);
   }
+
+  get age() {
+    return 2037 - this.birthYear;
+  }
+
+  //* If the property name already exists, prepend "_" to avoid naming conflicts.
+  //* The setter method validates the input before assigning it to _fullName.
+  //* The getter method returns the value stored in _fullName.
+  set fullName(name) {
+    if (name.includes(' ')) {
+      this._fullName = name;
+    } else {
+      console.log(`${name} is not a full name!`);
+    }
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
 }
 
-const ethanOb = new PersonCl('Ethan', 1998);
-console.log(ethanOb); //? Person {firstName: 'Ethan', birthYear: 1998}
+const ethanOb = new PersonCl('Ethan John', 1998);
+console.log(ethanOb); //? PersonCl {fullName: 'Ethan John', birthYear: 1998}
 // *the instance inherited calcAge from Person.prototype
 // *calcAge() is not inside ethanOb itself but inside PersonCl.prototype.
 // *First, it checks ethanOb itself (no method found).
 // *Then, it looks up ethanOb.__proto__, which is PersonCl.prototype, and finds calcAge().
 ethanOb.calcAge(); //? 39
+console.log(ethanOb.age); //? 39
 
 console.log(ethanOb.__proto__ === PersonCl.prototype); //? true
 
 PersonCl.prototype.greet = function () {
-  console.log(`Hey ${this.firstName}`);
+  console.log(`Hey ${this.fullName}`);
 };
 
-ethanOb.greet(); //? Hey Jessica
+ethanOb.greet(); //?Hey Ethan John
+
+const john = new PersonCl('John', 2000);
+console.log(john); //? John is not a full name!
 
 // NOTE:
 // * Classes are not hoisted
 // * Classes are first-class citizens
 // *Body of the classes are executed in strict mode
+
+// IMPORTANT 225: Setters and Getters
+console.log('-----Setters and Getters----');
+
+const account = {
+  owner: 'Ethan',
+  movements: [120, 400, 200, 130],
+
+  // *getter
+  get latest() {
+    return this.movements.slice(-1).pop();
+  },
+
+  // * setter (1 param only)
+  set latest(mov) {
+    this.movements.push(mov);
+  },
+};
+
+// we don't call the method
+console.log(account.latest); //? 130
+account.latest = 50;
+
+console.log(account.movements); //?  [120, 400, 200, 130, 50]
+
+//* Setters and getters are not required and are not used frequently in everyday coding.
+//* However, they are useful when we need to validate or modify a property
+//* before assigning it or when we want to control how a property is accessed.
+//* A common use case is validating data when setting a property value.
