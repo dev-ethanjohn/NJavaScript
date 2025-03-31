@@ -720,6 +720,11 @@ class PersonCl {
   get fullName() {
     return this._fullName;
   }
+
+  // *Static methdos only accessible through its Class (instanced of such class cannot access it)
+  static hey() {
+    console.log('Hey there static!');
+  }
 }
 
 const ethanOb = new PersonCl('Ethan John', 1998);
@@ -775,3 +780,17 @@ console.log(account.movements); //?  [120, 400, 200, 130, 50]
 //* However, they are useful when we need to validate or modify a property
 //* before assigning it or when we want to control how a property is accessed.
 //* A common use case is validating data when setting a property value.
+
+// IMPORTANT: 226 Static Methods
+console.log('------Static Methods----');
+
+// NOTE: convert an array list structure to an array using `Array.from()`
+
+Person.hey = function () {
+  console.log('Hey there! 😊');
+};
+
+Person.hey(); //? Hey there! 😊
+// ethanOb.hey(); //! This won't work cause instance doesnt have this hey() method on its prototype; this is only available as a property on the Person class itself
+
+PersonCl.hey(); //? Hey there static!
