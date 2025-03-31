@@ -822,3 +822,50 @@ console.log(steven.__proto__ === PersonProto); //? true
 const sarah = Object.create(PersonProto);
 sarah.init('Sarah', 1979);
 sarah.calcAge(); //? 58
+
+// IMPORTANT: 229: Inheritance between "class": constructpr functions
+console.log('------ Inheritance between "class": constructpr functions-----');
+
+const PersonHuman = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+
+PersonHuman.prototype.calcAge = function () {
+  console.log(2037 - this.birthYear);
+};
+
+const Student = function (firstName, birthYear, course) {
+  PersonHuman.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+//* We need to link this connrection first before adding methods to the Student Prototype
+Student.prototype = Object.create(PersonHuman.prototype);
+
+Student.prototype.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+const mike = new Student('Mike', 2010, 'Computer Science');
+console.log(mike);
+mike.introduce(); //? My name is Mike and I study Computer Science
+mike.calcAge(); //? 27
+
+console.log(mike.__proto__); //? PersonHuman {introduce: ƒ}
+console.log(mike.__proto__.__proto__); //? {calcAge: ƒ}
+
+console.log(mike instanceof Student); //? true
+console.log(mike instanceof PersonHuman); //? true
+console.log(mike instanceof Object); //? true
+
+Student.prototype.constructor = Student;
+console.dir(Student.prototype.constructor); //? Student(firstName, birthYear, course)
+
+//* ✅ Constructor functions define reusable object blueprints.
+//* ✅ .call() allows calling a parent constructor inside a child constructor.
+//* ✅ Object.create() ensures the child class correctly inherits from the parent.
+//* ✅ Methods should be added after linking the prototype to avoid overwriting.
+//* ✅ The constructor reference should be manually corrected.
+
+//NOTE: This approach mimics class-based inheritance before ES6 class syntax was introduced! 🚀
