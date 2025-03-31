@@ -683,3 +683,43 @@ Array.prototype.unique = function () {
 console.log(arr.unique()); //? [1, 2, 3, 4, 5, 8]
 
 const h1 = document.querySelector('h1');
+
+// IMPORTANT (222): ES6 Classes
+console.log('----ES6 Classes----');
+
+// class expression
+const PersonClEx = class {};
+
+// class declaration
+class PersonCl {
+  constructor(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  }
+
+  // NOTE: Methods inside the class (but outside the constructor) are added to Person.prototype, not inside the object itself. Objects created using new Person() inherit from Person.prototype.The class itself (Person) does not have sayHello() as a direct property—only instances do via prototype inheritance.
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+}
+
+const ethanOb = new PersonCl('Ethan', 1998);
+console.log(ethanOb); //? Person {firstName: 'Ethan', birthYear: 1998}
+// *the instance inherited calcAge from Person.prototype
+// *calcAge() is not inside ethanOb itself but inside PersonCl.prototype.
+// *First, it checks ethanOb itself (no method found).
+// *Then, it looks up ethanOb.__proto__, which is PersonCl.prototype, and finds calcAge().
+ethanOb.calcAge(); //? 39
+
+console.log(ethanOb.__proto__ === PersonCl.prototype); //? true
+
+PersonCl.prototype.greet = function () {
+  console.log(`Hey ${this.firstName}`);
+};
+
+ethanOb.greet(); //? Hey Jessica
+
+// NOTE:
+// * Classes are not hoisted
+// * Classes are first-class citizens
+// *Body of the classes are executed in strict mode
