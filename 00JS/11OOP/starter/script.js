@@ -893,3 +893,36 @@ ethanJohn.calcAge(); //? I'm 37 years old
 console.log(ethanJohn instanceof Students); //? true
 console.log(ethanJohn instanceof PersonCl); //? true
 console.log(ethanJohn instanceof Object); //? true
+
+// Importamt: 234: Inheritance on classes: object.create
+console.log('------Inheritance on classes: object.create-----');
+
+const PersonProto2 = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+const steven2 = Object.create(PersonProto2);
+
+// PersonProto2 is the prototype of StevenProto
+const StudentProto = Object.create(PersonProto2);
+StudentProto.init = function (firstName, birthYear, course) {
+  PersonProto2.init.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+StudentProto.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+// StudentProto is the prototype of jay2
+const jay2 = Object.create(StudentProto);
+jay2.init('Jay', '2010', 'Computer Science');
+jay2.introduce(); //? My name is Jay and I study Computer Science
+jay2.calcAge(); //? 27
