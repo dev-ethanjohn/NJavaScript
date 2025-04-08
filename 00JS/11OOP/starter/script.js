@@ -869,3 +869,27 @@ console.dir(Student.prototype.constructor); //? Student(firstName, birthYear, co
 //* ✅ The constructor reference should be manually corrected.
 
 //NOTE: This approach mimics class-based inheritance before ES6 class syntax was introduced! 🚀
+// IMPORTANT: 233: Inheritance betwen classes and es6 classes
+console.log('------Inheritance between classes and es6 classes-----');
+
+class Students extends PersonCl {
+  constructor(fullName, birthYear, course) {
+    super(fullName, birthYear);
+    this.course = course;
+  }
+
+  introduce() {
+    console.log(`My name is ${this.fullName} and I study ${this.course}`);
+  }
+
+  calcAge() {
+    console.log(`I'm ${2037 - this.birthYear} years old`);
+  }
+}
+
+const ethanJohn = new Students('Ethan John', 2000, 'Computer Science');
+ethanJohn.introduce(); //? My name is Ethan John and I study Computer Science
+ethanJohn.calcAge(); //? I'm 37 years old
+console.log(ethanJohn instanceof Students); //? true
+console.log(ethanJohn instanceof PersonCl); //? true
+console.log(ethanJohn instanceof Object); //? true
