@@ -926,3 +926,133 @@ const jay2 = Object.create(StudentProto);
 jay2.init('Jay', '2010', 'Computer Science');
 jay2.introduce(); //? My name is Jay and I study Computer Science
 jay2.calcAge(); //? 27
+
+// IMPORTANT: 335: Another class example
+console.log('------Another class example-----');
+
+class Account {
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.pin = pin;
+    this.movements = [];
+    this.locale = navigator.language;
+
+    console.log(`Thanks for opening an account, ${owner}`);
+  }
+
+  // *Public interface
+  deposit(val) {
+    this.movements.push(val);
+  }
+
+  withdraw(val) {
+    this.deposit(-val);
+  }
+
+  approveLoan(val) {
+    return true;
+  }
+
+  requestLoan(val) {
+    if (this.approveLoan(val)) {
+      this.deposit(val);
+      console.log(`Loan approved`);
+    }
+  }
+}
+
+const acc1 = new Account('Ethan', 'USD', 1111);
+const acc2 = new Account('Matilda', 'EUR', 2222);
+const acc3 = new Account('Steven', 'USD', 3333);
+
+// * NOTE *Best to create methods inside the prototype, intead of directly manipulating the properties outside the object
+// acc1.movements.push(250);
+// acc1.movements.push(500);
+// acc1.movements.push(-300);
+acc1.deposit(250);
+acc1.deposit(500);
+acc1.withdraw(300);
+acc1.requestLoan(1000);
+acc1.approveLoan(1000); //? true
+
+console.log(acc1); //? Account {owner: 'Ethan', currency: 'USD', pin: 1111, movements: Array(3), locale: 'en-US'}
+
+console.log(acc1.pin);
+
+//IMPORTANT: 236: Encapsulation: Protected Properties and Methods
+console.log('------Encapsulation: Protected Properties and Methods-----');
+// NOTE: Encapsulation is the bundling of data and methods that operate on that data within one unit.
+// It restricts direct access to some of the object's components.
+// Encapsulation is a fundamental concept in OOP that helps to protect the internal state of an object.
+// It allows the internal representation of an object to be hidden from the outside.
+// This is achieved through the use of private properties and methods.
+// Encapsulation helps to prevent unintended interference and misuse of the object's data.
+// It allows for controlled access to the object's state and behavior.
+
+// 1. pUBLIC fields -> present on all the instances but not on the Prototype.
+// 2. Private fields
+// 3. public methods
+// 4. private methods
+// 5. static versions of these 4
+
+class Account2 {
+  locale = navigator.language; //public field
+  bank = 'Bankist';
+  // * "private" means this cannot be read or mutated outside of the class
+  #movements = []; // private field
+  #pin;
+
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.#pin = pin;
+    // this.pin = pin;
+    // this.movements = [];
+
+    console.log(`Thanks for opening an account, ${owner}`);
+  }
+
+  // *Public interface API
+  getMovements() {
+    return this.#movements;
+  }
+  deposit(val) {
+    this.#movements.push(val);
+  }
+
+  withdraw(val) {
+    this.deposit(-val);
+  }
+
+  #approveLoan(val) {
+    return true;
+  }
+
+  requestLoan(val) {
+    if (this.#approveLoan(val)) {
+      this.deposit(val);
+      console.log(`Loan approved`);
+    }
+  }
+
+  // static methods only accessible on the class and not on the instance
+  // you can set this to private with #
+  static test() {
+    console.log('Test');
+  }
+}
+
+const account1 = new Account2('Ethan', 'USD', 1111);
+console.log(account1);
+// {
+//     "locale": "en-US",
+//     "bank": "Bankist",
+//     "owner": "Ethan",
+//     "currency": "USD",
+//     "pin": 1111,
+//     "movements": []
+// }
+
+// account1.test(); // !Uncaught TypeError: account1.test is not a function
+Account2.test(); //? Test
