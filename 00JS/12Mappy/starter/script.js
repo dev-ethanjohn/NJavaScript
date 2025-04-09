@@ -13,6 +13,8 @@ const inputElevation = document.querySelector('.form__input--elevation');
 
 // geolocaltion
 
+let map, mapEvent;
+
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(
     function (position) {
@@ -25,7 +27,7 @@ if (navigator.geolocation) {
       );
 
       const coords = [latitude, longitude];
-      const map = L.map('map').setView(coords, 10);
+      map = L.map('map').setView(coords, 10);
       // console.log(map);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -34,30 +36,13 @@ if (navigator.geolocation) {
       }).addTo(map);
 
       // set marker
-      function onMapClick(e) {
-        // alert('You clicked the map at ' + e.latlng);
-        const { lat, lng } = e.latlng;
-        console.log(
-          `You clicked the map at Latitude: ${lat}, Longitude: ${lng}`
-        );
-
-        // Create a new marker at the clicked location
-        L.marker([lat, lng])
-          .addTo(map)
-          .bindPopup(
-            // `Marker added at:<br>Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`
-            L.popup({
-              maxWidth: 250,
-              minWidth: 100,
-              autoClose: false,
-              closeOnClick: false,
-              className: 'running-popup',
-            })
-          )
-          .setPopupContent('workout')
-          .openPopup();
+      function onMapClick(mapE) {
+        mapEvent = mapE;
+        form.classList.remove('hidden');
+        inputDistance.focus();
       }
 
+      // Handling elick on map
       map.on('click', onMapClick);
     },
     function () {
@@ -68,3 +53,38 @@ if (navigator.geolocation) {
 
 // any variable that is global in any script is available in all scripts
 // console.log(firstName);
+
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  // clear input fields
+  inputDistance.value =
+    inputDuration.value =
+    inputCadence.value =
+    inputElevation.value =
+      '';
+
+  // Display the marker
+  const { lat, lng } = mapEvent.latlng;
+  console.log(`You clicked the map at Latitude: ${lat}, Longitude: ${lng}`);
+  // Create a new marker at the clicked location
+  L.marker([lat, lng])
+    .addTo(map)
+    .bindPopup(
+      // `Marker added at:<br>Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`
+      L.popup({
+        maxWidth: 250,
+        minWidth: 100,
+        autoClose: false,
+        closeOnClick: false,
+        className: 'running-popup',
+      })
+    )
+    .setPopupContent('workout')
+    .openPopup();
+});
+
+inputType.addEventListener('change', function () {
+  inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
+  inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
+});
