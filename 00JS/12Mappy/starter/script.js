@@ -25,18 +25,40 @@ if (navigator.geolocation) {
       );
 
       const coords = [latitude, longitude];
-
       const map = L.map('map').setView(coords, 10);
+      // console.log(map);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
-      L.marker(coords)
-        .addTo(map)
-        .bindPopup('A pretty CSS popup.<br> Easily customizable.')
-        .openPopup();
+      // set marker
+      function onMapClick(e) {
+        // alert('You clicked the map at ' + e.latlng);
+        const { lat, lng } = e.latlng;
+        console.log(
+          `You clicked the map at Latitude: ${lat}, Longitude: ${lng}`
+        );
+
+        // Create a new marker at the clicked location
+        L.marker([lat, lng])
+          .addTo(map)
+          .bindPopup(
+            // `Marker added at:<br>Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`
+            L.popup({
+              maxWidth: 250,
+              minWidth: 100,
+              autoClose: false,
+              closeOnClick: false,
+              className: 'running-popup',
+            })
+          )
+          .setPopupContent('workout')
+          .openPopup();
+      }
+
+      map.on('click', onMapClick);
     },
     function () {
       alert('could not get your position');
