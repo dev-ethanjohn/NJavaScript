@@ -1016,13 +1016,16 @@ class Account2 {
   // *Public interface API
   getMovements() {
     return this.#movements;
+    //not chainable
   }
   deposit(val) {
     this.#movements.push(val);
+    return this;
   }
 
   withdraw(val) {
     this.deposit(-val);
+    return this;
   }
 
   #approveLoan(val) {
@@ -1034,6 +1037,7 @@ class Account2 {
       this.deposit(val);
       console.log(`Loan approved`);
     }
+    return this;
   }
 
   // static methods only accessible on the class and not on the instance
@@ -1056,3 +1060,16 @@ console.log(account1);
 
 // account1.test(); // !Uncaught TypeError: account1.test is not a function
 Account2.test(); //? Test
+
+// IMPORTANT: 237: Chaining methods
+console.log('----Chaining methods----');
+
+account1
+  .deposit(300)
+  .withdraw(100)
+  .withdraw(200)
+  .requestLoan(25000)
+  .withdraw(3000)
+  .getMovements(); //*reads
+
+console.log(account1);
