@@ -24,6 +24,7 @@ class Workout {
 }
 
 class Running extends Workout {
+  type = 'running';
   constructor(coords, distance, duration, cadence) {
     super(coords, distance, duration);
     this.cadence = cadence;
@@ -37,6 +38,7 @@ class Running extends Workout {
 }
 
 class Cycling extends Workout {
+  type = 'cycling';
   constructor(coords, distance, duration, elevationGain) {
     super(coords, distance, duration);
     this.elevationGain = elevationGain;
@@ -58,6 +60,7 @@ class Cycling extends Workout {
 class App {
   #map;
   #mapEvent;
+  #workouts = [];
 
   constructor() {
     // immediately invoked upon page loads
@@ -105,84 +108,90 @@ class App {
   }
 
   _newWorkout(e) {
-    // ? Helper method
-    const inputValid = (...inputs) => {
-      return inputs.every(input => Number.isFinite(input));
-    };
-
-    const allPositive = (...inputs) => {
-      return inputs.every(input => input > 0);
-    };
-
-    const notEmpty = (...inputs) => inputs.every(input => input !== '');
-
     e.preventDefault();
 
-    //Get data from form
+    // Helper methods
+    const inputValid = input => Number.isFinite(input);
+    const allPositive = input => input > 0;
+    const notEmpty = input => input.trim() !== '';
+
+    // Get data from form
     const type = inputType.value;
-    const distanceStr = inputDistance.value;
-    const durationStr = inputDuration.value;
-    const cadenceStr = inputCadence.value;
-    const elevationStr = inputElevation.value;
+    const distanceStr = inputDistance.value.trim();
+    const durationStr = inputDuration.value.trim();
+    const cadenceStr = inputCadence.value.trim();
+    const elevationStr = inputElevation.value.trim();
+    const { lat, lng } = this.#mapEvent.latlng; // Coordinates from the map click event
 
-    const distance = +distanceStr;
-    const duration = +durationStr;
-    // Check if data is valid
+    // Validate required fields based on workout type
+    const requiredFields =
+      type === 'running'
+        ? [distanceStr, durationStr, cadenceStr]
+        : [distanceStr, durationStr, elevationStr];
 
-    // Check for empty fields first
-    if (
-      (type === 'running' && (!distanceStr || !durationStr || !cadenceStr)) ||
-      (type === 'cycling' && (!distanceStr || !durationStr || !elevationStr))
-    ) {
-      alert('Please fill in all the fields');
+    if (!requiredFields.every(notEmpty)) {
+      alert('Please fill in all the required fields');
       return;
     }
 
-    //* If workout running, create running object
+    // Convert inputs to numbers for further validation
+    const distance = +distanceStr;
+    const duration = +durationStr;
+    const cadence = +cadenceStr;
+    const elevation = +elevationStr;
+
+    // Dynamically determine which fields to validate
+    const numericFields =
+      type === 'running'
+        ? { distance, duration, cadence }
+        : { distance, duration, elevation };
+
+    const fieldMap =
+      type === 'running'
+        ? {
+            distance: inputDistance,
+            duration: inputDuration,
+            cadence: inputCadence,
+          }
+        : {
+            distance: inputDistance,
+            duration: inputDuration,
+            elevation: inputElevation,
+          };
+
+    // Collect invalid fields
+    let invalidFields = [];
+
+    for (const [key, value] of Object.entries(numericFields)) {
+      if (!inputValid(value)) invalidFields.push(fieldMap[key]);
+      if (!allPositive(value)) invalidFields.push(fieldMap[key]);
+    }
+
+    // If there are invalid fields, clear only those fields and focus on the first invalid field
+    if (invalidFields.length > 0) {
+      alert('Inputs must be positive numbers');
+      invalidFields.forEach(field => (field.value = '')); // Clear only invalid fields
+      invalidFields[0].focus(); // Focus on the first invalid field
+      return;
+    }
+
+    // At this point, all inputs are valid
+    // Create a new workout object
+    let workout;
+
     if (type === 'running') {
-      const cadence = +cadenceStr;
-      // Check if data is valid
-      if (
-        !inputValid(distance, duration, cadence) ||
-        !allPositive(distance, duration, cadence)
-      ) {
-        alert('Inputs must be a positiive number');
-        inputDistance.value = inputDuration.value = inputCadence.value = '';
-        return;
-      }
+      workout = new Running([lat, lng], distance, duration, cadence);
+    } else if (type === 'cycling') {
+      workout = new Cycling([lat, lng], distance, duration, elevation);
     }
 
-    //* if workout cycling, create cycling obect
-    if (type === 'cycling') {
-      const elevation = +elevationStr;
-      // Check if data is valid (IF FALSE)
-      if (
-        !inputValid(distance, duration, elevation) ||
-        !allPositive(distance, duration)
-      ) {
-        alert('Inputs must be a positiive number');
-        inputDistance.value = inputDuration.value = inputElevation.value = '';
-        return;
-      }
-    }
+    this.#workouts.push(workout);
 
-    // add new object to workout array
+    console.log(workout); // Log the created workout object
 
     // Render workout on map as a marker
     //* Create a new marker at the clicked location
-    L.marker([lat, lng])
-      .addTo(this.#map)
-      .bindPopup(
-        L.popup({
-          maxWidth: 250,
-          minWidth: 100,
-          autoClose: false,
-          closeOnClick: false,
-          className: 'running-popup',
-        })
-      )
-      .setPopupContent('workout')
-      .openPopup();
+    this.renderWorkoutMarker(workout);
 
     // Render workout on list
 
@@ -193,9 +202,23 @@ class App {
       inputElevation.value =
         '';
 
-    //* Display the marker
-    const { lat, lng } = this.#mapEvent.latlng;
     console.log(`You clicked the map at Latitude: ${lat}, Longitude: ${lng}`);
+  }
+
+  renderWorkoutMarker(workout) {
+    L.marker(workout.coords)
+      .addTo(this.#map)
+      .bindPopup(
+        L.popup({
+          maxWidth: 250,
+          minWidth: 100,
+          autoClose: false,
+          closeOnClick: false,
+          className: `${workout.type}-popup`,
+        })
+      )
+      .setPopupContent('workout')
+      .openPopup();
   }
 }
 
