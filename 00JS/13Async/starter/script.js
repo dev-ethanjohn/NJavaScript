@@ -349,3 +349,92 @@ console.log('1. Will get the location');
   }
   console.log('3. Finished getting location');
 })();
+
+// IMPORTANT:277: reTURNING Promises in Parallel
+console.log('---reTURNING Promises in Parallel-----');
+
+const get3Countries = async function (c1, c2, c3) {
+  try {
+    // NOTE: RUN IN SEQUENCE
+    // const [data1] = await getJSON(`https://restcountries.com/v3.1/name/${c1}`);
+    // const [data2] = await getJSON(`https://restcountries.com/v3.1/name/${c2}`);
+    // const [data3] = await getJSON(`https://restcountries.com/v3.1/name/${c3}`);
+
+    //*NOTE: RUN IN PARALLEL
+    const data = await Promise.all([
+      getJSON(`https://restcountries.com/v3.1/name/${c1}`),
+      getJSON(`https://restcountries.com/v3.1/name/${c2}`),
+      getJSON(`https://restcountries.com/v3.1/name/${c3}`),
+    ]);
+    console.log(data.map(country => country[0].capital[0]));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+get3Countries('uk', 'canada', 'philippines');
+
+// IMPORTANT:277: Other Promises Combinators: race, allSettled and any
+console.log('---Other Promises Combinators: race, allSettled and any-----');
+
+// NOTE: Promise.race()
+// 1st settled Promises wins the race
+// short circuits if either resolved or reject is returned
+(async function () {
+  const res = await Promise.race([
+    getJSON(`https://restcountries.com/v3.1/name/italy`),
+    getJSON(`https://restcountries.com/v3.1/name/uk`),
+    getJSON(`https://restcountries.com/v3.1/name/france`),
+  ]);
+
+  console.log(res[0].name.common);
+})();
+
+const timeout = function (sec) {
+  return new Promise((_, reject) => {
+    setTimeout(() => {
+      reject(new Error('Request took too long'));
+    }, sec * 1000);
+  });
+};
+
+(async function () {
+  try {
+    const res = await Promise.race([
+      getJSON(`https://restcountries.com/v3.1/name/vietnam`),
+      timeout(2),
+    ]);
+    console.log(res[0].name.common);
+  } catch (error) {
+    console.error(error);
+  }
+})();
+
+//* NOTE: Promise.allSettled
+// returns all settled promises whether rejected or not;
+// never shortcuits
+
+Promise.allSettled([
+  Promise.resolve('Success'),
+  Promise.reject('ERROR'),
+  Promise.resolve('Another success'),
+]).then(res => console.log(res));
+
+Promise.all([
+  Promise.resolve('Success'),
+  Promise.reject('ERROR'),
+  Promise.resolve('Another success'),
+])
+  .then(res => console.log(res))
+  .catch(err => console.error(err));
+
+//* NOTE: Promise.any [ES2021]
+// returns the 1st fulfilled promise
+// rejected promises will be ignored
+Promise.any([
+  Promise.resolve('Success'),
+  Promise.reject('ERROR'),
+  Promise.resolve('Another success'),
+])
+  .then(res => console.log(res))
+  .catch(err => console.error(err));
