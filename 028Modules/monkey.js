@@ -14,6 +14,6 @@ const printMonkey = () => {
 // *can rename
 // export { monkey, printMonkey as PM };
 
-// *default (can only be one in a file, but you can add multiple named exports)
+// *default (can only be one in a file, but you can add multiple named exports). Export 1 variable in every module
 export { monkey };
 export default printMonkey; //* only 1
